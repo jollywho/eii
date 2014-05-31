@@ -1,4 +1,5 @@
-db=../bin/eib.db
+db=../../bin/eib.db
+touch $db
 
 exec_sql()
 {
@@ -9,17 +10,23 @@ sql_drop="
 DROP TABLE books;"
 
 sql_create="
-CREATE TABLE books (
+CREATE TABLE master (
   id INTEGER PRIMARY KEY,
   name TEXT,
-  authors TEXT,
+  author TEXT,
   year TEXT,
-  edition TEXT
-);
-"
+  version TEXT
+);"
+
+sql_insert="
+INSERT INTO master VALUES ( null, $2, $3, $4, $5 );"
 
 if [ "$1" = "-n" ]
 then
+  echo new
   exec_sql "$sql_drop"
+elif [ "$1" = "-i" ]
+then
+  echo insert
+  exec_sql "$sql_insert"
 fi
-exec_sql "$sql_create"

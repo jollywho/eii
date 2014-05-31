@@ -1,7 +1,7 @@
-db=../bin/eib.db
+db=../../bin/eib.db
 res=$(
   sqlite3 $db << EOF
-  SELECT count(*) FROM books;
+  SELECT count(*) FROM master;
 EOF
 )
 echo $res
