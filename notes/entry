@@ -4,7 +4,7 @@
   name: branch_1
   pos: !ruby/object:Chishiki::Pos
     x: 0
-    y: 2
+    y: 8
     w: 0
     h: 0
   children:
@@ -12,8 +12,8 @@
     parent: *1
     name: branch_2
     pos: !ruby/object:Chishiki::Pos
-      x: 2
-      y: 4
+      x: 3
+      y: 10
       w: 0
       h: 0
     children:
@@ -21,38 +21,38 @@
       parent: *2
       name: branch_3
       pos: !ruby/object:Chishiki::Pos
-        x: 4
-        y: 6
+        x: 6
+        y: 12
         w: 0
         h: 0
       children:
-      - &9 !ruby/object:Chishiki::Branch
+      - !ruby/object:Chishiki::Branch
         parent: *3
         name: branch_4
         pos: !ruby/object:Chishiki::Pos
-          x: 6
-          y: 9
+          x: 9
+          y: 14
           w: 0
           h: 0
         children: []
         txt: &8 !ruby/object:Chishiki::Text
           pos: !ruby/object:Chishiki::Pos
-            x: 6
-            y: 9
+            x: 9
+            y: 14
             w: 40
             h: 1
           list:
           - !ruby/object:Chishiki::Line
             pos: !ruby/object:Chishiki::Pos
-              x: 6
-              y: 9
+              x: 9
+              y: 14
               w: 40
               h: 1
             line: 0
             msg: '{table_name}'
             curs: !ruby/object:Chishiki::Pos
-              x: 18
-              y: 9
+              x: 21
+              y: 14
               w: 1
               h: 1
           index: 0
@@ -60,210 +60,106 @@
           shrink: false
         node: &6 !ruby/object:Chishiki::Label
           pos: !ruby/object:Chishiki::Pos
-            x: -15
-            y: 9
+            x: -13
+            y: 14
             w: 0
             h: 0
-          msg: ￭─o
-          color: 3
+          msg: ￭──o
+          color: 5
         marker: &5 !ruby/object:Chishiki::Label
           pos: !ruby/object:Chishiki::Pos
-            x: 5
-            y: 9
+            x: 8
+            y: 14
             w: 0
             h: 0
           msg: ' '
           color: 2
         wpipe: &7 !ruby/object:Chishiki::Label
           pos: !ruby/object:Chishiki::Pos
-            x: -12
-            y: 9
+            x: -9
+            y: 14
             w: 0
             h: 0
           msg: ─────────────────
-          color: 3
+          color: 5
         cib: 1
         height: 0
         created: false
         pipe: &4 !ruby/object:Chishiki::Pipe
           msg: '|'
           pos: !ruby/object:Chishiki::Pos
-            x: -15
-            y: 8
+            x: -13
+            y: 13
             w: 0
             h: 0
           parent: *3
           target: *3
           change: 2
           offset: -1
-          amount: 2
-          color: 3
+          amount: 1
+          color: 5
         widgets:
         - *4
         - *5
         - *6
         - *7
         - *8
-      - !ruby/object:Chishiki::Branch
-        parent: *3
-        name: branch_4
+        status: 
+      txt: &13 !ruby/object:Chishiki::Text
         pos: !ruby/object:Chishiki::Pos
           x: 6
-          y: 11
-          w: 0
-          h: 0
-        children: []
-        txt: &14 !ruby/object:Chishiki::Text
-          pos: !ruby/object:Chishiki::Pos
-            x: 6
-            y: 11
-            w: 40
-            h: 1
-          list:
-          - !ruby/object:Chishiki::Line
-            pos: !ruby/object:Chishiki::Pos
-              x: 6
-              y: 11
-              w: 40
-              h: 1
-            line: 0
-            msg: '{all} '
-            curs: !ruby/object:Chishiki::Pos
-              x: 12
-              y: 11
-              w: 1
-              h: 1
-          - !ruby/object:Chishiki::Line
-            pos: !ruby/object:Chishiki::Pos
-              x: 6
-              y: 12
-              w: 40
-              h: 1
-            line: 1
-            msg: <default>
-            curs: !ruby/object:Chishiki::Pos
-              x: 15
-              y: 12
-              w: 1
-              h: 1
-          index: 1
-          grow: false
-          shrink: false
-        node: &12 !ruby/object:Chishiki::Label
-          pos: !ruby/object:Chishiki::Pos
-            x: -15
-            y: 11
-            w: 0
-            h: 0
-          msg: ￭─o
-          color: 3
-        marker: &11 !ruby/object:Chishiki::Label
-          pos: !ruby/object:Chishiki::Pos
-            x: 5
-            y: 11
-            w: 0
-            h: 0
-          msg: ' '
-          color: 2
-        wpipe: &13 !ruby/object:Chishiki::Label
-          pos: !ruby/object:Chishiki::Pos
-            x: -12
-            y: 11
-            w: 0
-            h: 0
-          msg: ─────────────────
-          color: 3
-        cib: 2
-        height: 0
-        created: false
-        pipe: &10 !ruby/object:Chishiki::Pipe
-          msg: '|'
-          pos: !ruby/object:Chishiki::Pos
-            x: -15
-            y: 10
-            w: 0
-            h: 0
-          parent: *3
-          target: *9
-          change: 1
-          offset: 0
-          amount: 1
-          color: 3
-        widgets:
-        - *10
-        - *11
-        - *12
-        - *13
-        - *14
-        status: 
-      txt: &19 !ruby/object:Chishiki::Text
-        pos: !ruby/object:Chishiki::Pos
-          x: 4
-          y: 6
+          y: 12
           w: 40
           h: 1
         list:
         - !ruby/object:Chishiki::Line
           pos: !ruby/object:Chishiki::Pos
-            x: 4
-            y: 6
+            x: 6
+            y: 12
             w: 40
             h: 1
           line: 0
-          msg: '-s select '
+          msg: '[-s select]'
           curs: !ruby/object:Chishiki::Pos
-            x: 14
-            y: 6
+            x: 17
+            y: 12
             w: 1
             h: 1
-        - !ruby/object:Chishiki::Line
-          pos: !ruby/object:Chishiki::Pos
-            x: 4
-            y: 7
-            w: 40
-            h: 1
-          line: 1
-          msg: <default>
-          curs: !ruby/object:Chishiki::Pos
-            x: 13
-            y: 7
-            w: 1
-            h: 1
-        index: 1
+        index: 0
         grow: false
         shrink: false
-      node: &17 !ruby/object:Chishiki::Label
+      node: &11 !ruby/object:Chishiki::Label
         pos: !ruby/object:Chishiki::Pos
-          x: -17
-          y: 6
+          x: -16
+          y: 12
           w: 0
           h: 0
-        msg: ￭─o
+        msg: ￭──o
         color: 1
-      marker: &16 !ruby/object:Chishiki::Label
+      marker: &10 !ruby/object:Chishiki::Label
         pos: !ruby/object:Chishiki::Pos
-          x: 3
-          y: 6
+          x: 5
+          y: 12
           w: 0
           h: 0
         msg: ' '
         color: 2
-      wpipe: &18 !ruby/object:Chishiki::Label
+      wpipe: &12 !ruby/object:Chishiki::Label
         pos: !ruby/object:Chishiki::Pos
-          x: -14
-          y: 6
+          x: -12
+          y: 12
           w: 0
           h: 0
         msg: ─────────────────
         color: 1
-      cib: 7
+      cib: 3
       height: 0
       created: false
-      pipe: &15 !ruby/object:Chishiki::Pipe
+      pipe: &9 !ruby/object:Chishiki::Pipe
         msg: '|'
         pos: !ruby/object:Chishiki::Pos
-          x: -17
-          y: 5
+          x: -16
+          y: 11
           w: 0
           h: 0
         parent: *2
@@ -273,454 +169,454 @@
         amount: 1
         color: 1
       widgets:
-      - *15
-      - *16
-      - *17
-      - *18
-      - *19
-    - &20 !ruby/object:Chishiki::Branch
+      - *9
+      - *10
+      - *11
+      - *12
+      - *13
+    - &14 !ruby/object:Chishiki::Branch
       parent: *2
       name: branch_3
       pos: !ruby/object:Chishiki::Pos
-        x: 4
-        y: 14
+        x: 6
+        y: 16
         w: 0
         h: 0
       children:
       - !ruby/object:Chishiki::Branch
-        parent: *20
+        parent: *14
         name: branch_4
         pos: !ruby/object:Chishiki::Pos
-          x: 6
-          y: 16
+          x: 9
+          y: 18
           w: 0
           h: 0
         children: []
-        txt: &25 !ruby/object:Chishiki::Text
+        txt: &19 !ruby/object:Chishiki::Text
           pos: !ruby/object:Chishiki::Pos
-            x: 6
-            y: 16
+            x: 9
+            y: 18
             w: 40
             h: 1
           list:
           - !ruby/object:Chishiki::Line
             pos: !ruby/object:Chishiki::Pos
-              x: 6
-              y: 16
+              x: 9
+              y: 18
               w: 40
               h: 1
             line: 0
             msg: '{table_name}'
             curs: !ruby/object:Chishiki::Pos
-              x: 18
-              y: 16
+              x: 21
+              y: 18
               w: 1
               h: 1
           index: 0
           grow: false
           shrink: false
-        node: &23 !ruby/object:Chishiki::Label
+        node: &17 !ruby/object:Chishiki::Label
           pos: !ruby/object:Chishiki::Pos
-            x: -15
-            y: 16
+            x: -13
+            y: 18
             w: 0
             h: 0
-          msg: ￭─o
-          color: 3
-        marker: &22 !ruby/object:Chishiki::Label
+          msg: ￭──o
+          color: 5
+        marker: &16 !ruby/object:Chishiki::Label
           pos: !ruby/object:Chishiki::Pos
-            x: 5
-            y: 16
+            x: 8
+            y: 18
             w: 0
             h: 0
           msg: ' '
           color: 2
-        wpipe: &24 !ruby/object:Chishiki::Label
+        wpipe: &18 !ruby/object:Chishiki::Label
           pos: !ruby/object:Chishiki::Pos
-            x: -12
-            y: 16
+            x: -9
+            y: 18
             w: 0
             h: 0
           msg: ─────────────────
-          color: 3
+          color: 5
         cib: 1
         height: 0
         created: false
-        pipe: &21 !ruby/object:Chishiki::Pipe
+        pipe: &15 !ruby/object:Chishiki::Pipe
           msg: '|'
           pos: !ruby/object:Chishiki::Pos
-            x: -15
-            y: 15
+            x: -13
+            y: 17
             w: 0
             h: 0
-          parent: *20
-          target: *20
+          parent: *14
+          target: *14
           change: 2
           offset: -1
           amount: 1
-          color: 3
+          color: 5
         widgets:
-        - *21
-        - *22
-        - *23
-        - *24
-        - *25
-      txt: &30 !ruby/object:Chishiki::Text
+        - *15
+        - *16
+        - *17
+        - *18
+        - *19
+      txt: &24 !ruby/object:Chishiki::Text
         pos: !ruby/object:Chishiki::Pos
-          x: 4
-          y: 14
+          x: 6
+          y: 16
           w: 40
           h: 1
         list:
         - !ruby/object:Chishiki::Line
           pos: !ruby/object:Chishiki::Pos
-            x: 4
-            y: 14
+            x: 6
+            y: 16
             w: 40
             h: 1
           line: 0
-          msg: -i insert
+          msg: '[-i insert]'
           curs: !ruby/object:Chishiki::Pos
-            x: 13
-            y: 14
+            x: 17
+            y: 16
             w: 1
             h: 1
         index: 0
         grow: false
         shrink: false
-      node: &28 !ruby/object:Chishiki::Label
+      node: &22 !ruby/object:Chishiki::Label
         pos: !ruby/object:Chishiki::Pos
-          x: -17
-          y: 14
+          x: -16
+          y: 16
           w: 0
           h: 0
-        msg: ￭─o
+        msg: ￭──o
         color: 1
-      marker: &27 !ruby/object:Chishiki::Label
+      marker: &21 !ruby/object:Chishiki::Label
         pos: !ruby/object:Chishiki::Pos
-          x: 3
-          y: 14
+          x: 5
+          y: 16
           w: 0
           h: 0
-        msg: '|'
+        msg: ' '
         color: 2
-      wpipe: &29 !ruby/object:Chishiki::Label
+      wpipe: &23 !ruby/object:Chishiki::Label
         pos: !ruby/object:Chishiki::Pos
-          x: -14
-          y: 14
+          x: -12
+          y: 16
           w: 0
           h: 0
         msg: ─────────────────
-        color: 6
+        color: 1
       cib: 3
       height: 0
       created: false
-      pipe: &26 !ruby/object:Chishiki::Pipe
+      pipe: &20 !ruby/object:Chishiki::Pipe
         msg: '|'
         pos: !ruby/object:Chishiki::Pos
-          x: -17
-          y: 13
+          x: -16
+          y: 15
           w: 0
           h: 0
         parent: *2
         target: *3
-        change: 1
+        change: 5
         offset: 0
-        amount: 7
+        amount: 3
         color: 1
       widgets:
-      - *26
-      - *27
-      - *28
-      - *29
-      - *30
-      status: 
-    - &31 !ruby/object:Chishiki::Branch
+      - *20
+      - *21
+      - *22
+      - *23
+      - *24
+    - &25 !ruby/object:Chishiki::Branch
       parent: *2
       name: branch_3
       pos: !ruby/object:Chishiki::Pos
-        x: 4
-        y: 18
+        x: 6
+        y: 20
         w: 0
         h: 0
       children:
       - !ruby/object:Chishiki::Branch
-        parent: *31
+        parent: *25
         name: branch_4
+        pos: !ruby/object:Chishiki::Pos
+          x: 9
+          y: 22
+          w: 0
+          h: 0
+        children: []
+        txt: &30 !ruby/object:Chishiki::Text
+          pos: !ruby/object:Chishiki::Pos
+            x: 9
+            y: 22
+            w: 40
+            h: 1
+          list:
+          - !ruby/object:Chishiki::Line
+            pos: !ruby/object:Chishiki::Pos
+              x: 9
+              y: 22
+              w: 40
+              h: 1
+            line: 0
+            msg: '{table_name}'
+            curs: !ruby/object:Chishiki::Pos
+              x: 21
+              y: 22
+              w: 1
+              h: 1
+          index: 0
+          grow: false
+          shrink: false
+        node: &28 !ruby/object:Chishiki::Label
+          pos: !ruby/object:Chishiki::Pos
+            x: -13
+            y: 22
+            w: 0
+            h: 0
+          msg: ￭──o
+          color: 5
+        marker: &27 !ruby/object:Chishiki::Label
+          pos: !ruby/object:Chishiki::Pos
+            x: 8
+            y: 22
+            w: 0
+            h: 0
+          msg: ' '
+          color: 2
+        wpipe: &29 !ruby/object:Chishiki::Label
+          pos: !ruby/object:Chishiki::Pos
+            x: -9
+            y: 22
+            w: 0
+            h: 0
+          msg: ─────────────────
+          color: 5
+        cib: 1
+        height: 0
+        created: false
+        pipe: &26 !ruby/object:Chishiki::Pipe
+          msg: '|'
+          pos: !ruby/object:Chishiki::Pos
+            x: -13
+            y: 21
+            w: 0
+            h: 0
+          parent: *25
+          target: *25
+          change: 2
+          offset: -1
+          amount: 1
+          color: 5
+        widgets:
+        - *26
+        - *27
+        - *28
+        - *29
+        - *30
+      txt: &35 !ruby/object:Chishiki::Text
         pos: !ruby/object:Chishiki::Pos
           x: 6
           y: 20
-          w: 0
-          h: 0
-        children: []
-        txt: &36 !ruby/object:Chishiki::Text
-          pos: !ruby/object:Chishiki::Pos
-            x: 6
-            y: 20
-            w: 40
-            h: 1
-          list:
-          - !ruby/object:Chishiki::Line
-            pos: !ruby/object:Chishiki::Pos
-              x: 6
-              y: 20
-              w: 40
-              h: 1
-            line: 0
-            msg: '{table_name}'
-            curs: !ruby/object:Chishiki::Pos
-              x: 18
-              y: 20
-              w: 1
-              h: 1
-          index: 0
-          grow: false
-          shrink: false
-        node: &34 !ruby/object:Chishiki::Label
-          pos: !ruby/object:Chishiki::Pos
-            x: -15
-            y: 20
-            w: 0
-            h: 0
-          msg: ￭─o
-          color: 3
-        marker: &33 !ruby/object:Chishiki::Label
-          pos: !ruby/object:Chishiki::Pos
-            x: 5
-            y: 20
-            w: 0
-            h: 0
-          msg: ' '
-          color: 2
-        wpipe: &35 !ruby/object:Chishiki::Label
-          pos: !ruby/object:Chishiki::Pos
-            x: -12
-            y: 20
-            w: 0
-            h: 0
-          msg: ─────────────────
-          color: 3
-        cib: 1
-        height: 0
-        created: false
-        pipe: &32 !ruby/object:Chishiki::Pipe
-          msg: '|'
-          pos: !ruby/object:Chishiki::Pos
-            x: -15
-            y: 19
-            w: 0
-            h: 0
-          parent: *31
-          target: *31
-          change: 2
-          offset: -1
-          amount: 1
-          color: 3
-        widgets:
-        - *32
-        - *33
-        - *34
-        - *35
-        - *36
-      txt: &41 !ruby/object:Chishiki::Text
-        pos: !ruby/object:Chishiki::Pos
-          x: 4
-          y: 18
           w: 40
           h: 1
         list:
         - !ruby/object:Chishiki::Line
           pos: !ruby/object:Chishiki::Pos
-            x: 4
-            y: 18
+            x: 6
+            y: 20
             w: 40
             h: 1
           line: 0
-          msg: -u update
+          msg: '[-u update]'
           curs: !ruby/object:Chishiki::Pos
-            x: 13
-            y: 18
+            x: 17
+            y: 20
             w: 1
             h: 1
         index: 0
         grow: false
         shrink: false
-      node: &39 !ruby/object:Chishiki::Label
+      node: &33 !ruby/object:Chishiki::Label
         pos: !ruby/object:Chishiki::Pos
-          x: -17
-          y: 18
+          x: -16
+          y: 20
           w: 0
           h: 0
-        msg: ￭─o
+        msg: ￭──o
         color: 1
-      marker: &38 !ruby/object:Chishiki::Label
+      marker: &32 !ruby/object:Chishiki::Label
         pos: !ruby/object:Chishiki::Pos
-          x: 3
-          y: 18
+          x: 5
+          y: 20
           w: 0
           h: 0
-        msg: ' '
+        msg: '|'
         color: 2
-      wpipe: &40 !ruby/object:Chishiki::Label
+      wpipe: &34 !ruby/object:Chishiki::Label
         pos: !ruby/object:Chishiki::Pos
-          x: -14
-          y: 18
+          x: -12
+          y: 20
           w: 0
           h: 0
         msg: ─────────────────
-        color: 1
+        color: 4
       cib: 3
       height: 0
       created: false
-      pipe: &37 !ruby/object:Chishiki::Pipe
+      pipe: &31 !ruby/object:Chishiki::Pipe
         msg: '|'
         pos: !ruby/object:Chishiki::Pos
-          x: -17
-          y: 17
+          x: -16
+          y: 19
           w: 0
           h: 0
         parent: *2
-        target: *20
-        change: 1
+        target: *14
+        change: 3
         offset: 0
         amount: 3
         color: 1
       widgets:
-      - *37
-      - *38
-      - *39
-      - *40
-      - *41
-    - &42 !ruby/object:Chishiki::Branch
+      - *31
+      - *32
+      - *33
+      - *34
+      - *35
+      status: 
+    - &36 !ruby/object:Chishiki::Branch
       parent: *2
       name: branch_3
       pos: !ruby/object:Chishiki::Pos
-        x: 4
-        y: 22
+        x: 6
+        y: 24
         w: 0
         h: 0
       children:
       - !ruby/object:Chishiki::Branch
-        parent: *42
+        parent: *36
         name: branch_4
         pos: !ruby/object:Chishiki::Pos
-          x: 6
-          y: 24
+          x: 9
+          y: 26
           w: 0
           h: 0
         children: []
-        txt: &47 !ruby/object:Chishiki::Text
+        txt: &41 !ruby/object:Chishiki::Text
           pos: !ruby/object:Chishiki::Pos
-            x: 6
-            y: 24
+            x: 9
+            y: 26
             w: 40
             h: 1
           list:
           - !ruby/object:Chishiki::Line
             pos: !ruby/object:Chishiki::Pos
-              x: 6
-              y: 24
+              x: 9
+              y: 26
               w: 40
               h: 1
             line: 0
             msg: '{table_name}'
             curs: !ruby/object:Chishiki::Pos
-              x: 18
-              y: 24
+              x: 21
+              y: 26
               w: 1
               h: 1
           index: 0
           grow: false
           shrink: false
-        node: &45 !ruby/object:Chishiki::Label
+        node: &39 !ruby/object:Chishiki::Label
           pos: !ruby/object:Chishiki::Pos
-            x: -15
-            y: 24
+            x: -13
+            y: 26
             w: 0
             h: 0
-          msg: ￭─o
-          color: 3
-        marker: &44 !ruby/object:Chishiki::Label
+          msg: ￭──o
+          color: 5
+        marker: &38 !ruby/object:Chishiki::Label
           pos: !ruby/object:Chishiki::Pos
-            x: 5
-            y: 24
+            x: 8
+            y: 26
             w: 0
             h: 0
           msg: ' '
           color: 2
-        wpipe: &46 !ruby/object:Chishiki::Label
+        wpipe: &40 !ruby/object:Chishiki::Label
           pos: !ruby/object:Chishiki::Pos
-            x: -12
-            y: 24
+            x: -9
+            y: 26
             w: 0
             h: 0
           msg: ─────────────────
-          color: 3
+          color: 5
         cib: 1
         height: 0
         created: false
-        pipe: &43 !ruby/object:Chishiki::Pipe
+        pipe: &37 !ruby/object:Chishiki::Pipe
           msg: '|'
           pos: !ruby/object:Chishiki::Pos
-            x: -15
-            y: 23
+            x: -13
+            y: 25
             w: 0
             h: 0
-          parent: *42
-          target: *42
+          parent: *36
+          target: *36
           change: 2
           offset: -1
           amount: 1
-          color: 3
+          color: 5
         widgets:
-        - *43
-        - *44
-        - *45
-        - *46
-        - *47
-      txt: &52 !ruby/object:Chishiki::Text
+        - *37
+        - *38
+        - *39
+        - *40
+        - *41
+      txt: &46 !ruby/object:Chishiki::Text
         pos: !ruby/object:Chishiki::Pos
-          x: 4
-          y: 22
+          x: 6
+          y: 24
           w: 40
           h: 1
         list:
         - !ruby/object:Chishiki::Line
           pos: !ruby/object:Chishiki::Pos
-            x: 4
-            y: 22
+            x: 6
+            y: 24
             w: 40
             h: 1
           line: 0
-          msg: -d delete
+          msg: '[-d delete]'
           curs: !ruby/object:Chishiki::Pos
-            x: 13
-            y: 22
+            x: 17
+            y: 24
             w: 1
             h: 1
         index: 0
         grow: false
         shrink: false
-      node: &50 !ruby/object:Chishiki::Label
+      node: &44 !ruby/object:Chishiki::Label
         pos: !ruby/object:Chishiki::Pos
-          x: -17
-          y: 22
+          x: -16
+          y: 24
           w: 0
           h: 0
-        msg: ￭─o
+        msg: ￭──o
         color: 1
-      marker: &49 !ruby/object:Chishiki::Label
+      marker: &43 !ruby/object:Chishiki::Label
         pos: !ruby/object:Chishiki::Pos
-          x: 3
-          y: 22
+          x: 5
+          y: 24
           w: 0
           h: 0
         msg: ' '
         color: 2
-      wpipe: &51 !ruby/object:Chishiki::Label
+      wpipe: &45 !ruby/object:Chishiki::Label
         pos: !ruby/object:Chishiki::Pos
-          x: -14
-          y: 22
+          x: -12
+          y: 24
           w: 0
           h: 0
         msg: ─────────────────
@@ -728,77 +624,77 @@
       cib: 3
       height: 0
       created: false
-      pipe: &48 !ruby/object:Chishiki::Pipe
+      pipe: &42 !ruby/object:Chishiki::Pipe
         msg: '|'
         pos: !ruby/object:Chishiki::Pos
-          x: -17
-          y: 21
+          x: -16
+          y: 23
           w: 0
           h: 0
         parent: *2
-        target: *31
-        change: 1
+        target: *25
+        change: 3
         offset: 0
         amount: 3
         color: 1
       widgets:
-      - *48
-      - *49
-      - *50
-      - *51
-      - *52
-    - !ruby/object:Chishiki::Branch
+      - *42
+      - *43
+      - *44
+      - *45
+      - *46
+    - &58 !ruby/object:Chishiki::Branch
       parent: *2
       name: branch_3
       pos: !ruby/object:Chishiki::Pos
-        x: 4
-        y: 26
+        x: 6
+        y: 28
         w: 0
         h: 0
       children: []
-      txt: &57 !ruby/object:Chishiki::Text
+      txt: &51 !ruby/object:Chishiki::Text
         pos: !ruby/object:Chishiki::Pos
-          x: 4
-          y: 26
+          x: 6
+          y: 28
           w: 40
           h: 1
         list:
         - !ruby/object:Chishiki::Line
           pos: !ruby/object:Chishiki::Pos
-            x: 4
-            y: 26
+            x: 6
+            y: 28
             w: 40
             h: 1
           line: 0
-          msg: -l list
+          msg: '[-l list]'
           curs: !ruby/object:Chishiki::Pos
-            x: 11
-            y: 26
+            x: 15
+            y: 28
             w: 1
             h: 1
         index: 0
         grow: false
         shrink: false
-      node: &55 !ruby/object:Chishiki::Label
+      node: &49 !ruby/object:Chishiki::Label
         pos: !ruby/object:Chishiki::Pos
-          x: -17
-          y: 26
+          x: -16
+          y: 28
           w: 0
           h: 0
-        msg: ￭─o
+        msg: ￭──o
         color: 1
-      marker: &54 !ruby/object:Chishiki::Label
+      marker: &48 !ruby/object:Chishiki::Label
         pos: !ruby/object:Chishiki::Pos
-          x: 3
-          y: 26
+          x: 5
+          y: 28
           w: 0
           h: 0
         msg: ' '
         color: 2
-      wpipe: &56 !ruby/object:Chishiki::Label
+      wpipe: &50 !ruby/object:Chishiki::Label
         pos: !ruby/object:Chishiki::Pos
-          x: -14
-          y: 26
+          x: -12
+          y: 28
           w: 0
           h: 0
         msg: ─────────────────
@@ -806,80 +702,262 @@
       cib: 1
       height: 0
       created: false
-      pipe: &53 !ruby/object:Chishiki::Pipe
+      pipe: &47 !ruby/object:Chishiki::Pipe
         msg: '|'
         pos: !ruby/object:Chishiki::Pos
-          x: -17
-          y: 25
+          x: -16
+          y: 27
           w: 0
           h: 0
         parent: *2
-        target: *42
-        change: 1
+        target: *36
+        change: 3
         offset: 0
         amount: 3
         color: 1
       widgets:
-      - *53
-      - *54
-      - *55
-      - *56
-      - *57
-    txt: &62 !ruby/object:Chishiki::Text
+      - *47
+      - *48
+      - *49
+      - *50
+      - *51
+    - &52 !ruby/object:Chishiki::Branch
+      parent: *2
+      name: branch_3
       pos: !ruby/object:Chishiki::Pos
-        x: 2
-        y: 4
+        x: 6
+        y: 30
+        w: 0
+        h: 0
+      children:
+      - !ruby/object:Chishiki::Branch
+        parent: *52
+        name: branch_4
+        pos: !ruby/object:Chishiki::Pos
+          x: 9
+          y: 33
+          w: 0
+          h: 0
+        children: []
+        txt: &57 !ruby/object:Chishiki::Text
+          pos: !ruby/object:Chishiki::Pos
+            x: 9
+            y: 33
+            w: 40
+            h: 1
+          list:
+          - !ruby/object:Chishiki::Line
+            pos: !ruby/object:Chishiki::Pos
+              x: 9
+              y: 33
+              w: 40
+              h: 1
+            line: 0
+            msg: '[] '
+            curs: !ruby/object:Chishiki::Pos
+              x: 12
+              y: 33
+              w: 1
+              h: 1
+          - !ruby/object:Chishiki::Line
+            pos: !ruby/object:Chishiki::Pos
+              x: 9
+              y: 34
+              w: 40
+              h: 1
+            line: 1
+            msg: <default=table all>
+            curs: !ruby/object:Chishiki::Pos
+              x: 28
+              y: 34
+              w: 1
+              h: 1
+          index: 1
+          grow: false
+          shrink: false
+        node: &55 !ruby/object:Chishiki::Label
+          pos: !ruby/object:Chishiki::Pos
+            x: -13
+            y: 33
+            w: 0
+            h: 0
+          msg: ￭──o
+          color: 5
+        marker: &54 !ruby/object:Chishiki::Label
+          pos: !ruby/object:Chishiki::Pos
+            x: 8
+            y: 33
+            w: 0
+            h: 0
+          msg: ' '
+          color: 2
+        wpipe: &56 !ruby/object:Chishiki::Label
+          pos: !ruby/object:Chishiki::Pos
+            x: -9
+            y: 33
+            w: 0
+            h: 0
+          msg: ─────────────────
+          color: 5
+        cib: 2
+        height: 0
+        created: false
+        pipe: &53 !ruby/object:Chishiki::Pipe
+          msg: '|'
+          pos: !ruby/object:Chishiki::Pos
+            x: -13
+            y: 32
+            w: 0
+            h: 0
+          parent: *52
+          target: *52
+          change: 2
+          offset: -1
+          amount: 2
+          color: 5
+        widgets:
+        - *53
+        - *54
+        - *55
+        - *56
+        - *57
+      txt: &63 !ruby/object:Chishiki::Text
+        pos: !ruby/object:Chishiki::Pos
+          x: 6
+          y: 30
+          w: 40
+          h: 1
+        list:
+        - !ruby/object:Chishiki::Line
+          pos: !ruby/object:Chishiki::Pos
+            x: 6
+            y: 30
+            w: 40
+            h: 1
+          line: 0
+          msg: '[] '
+          curs: !ruby/object:Chishiki::Pos
+            x: 9
+            y: 30
+            w: 1
+            h: 1
+        - !ruby/object:Chishiki::Line
+          pos: !ruby/object:Chishiki::Pos
+            x: 6
+            y: 31
+            w: 40
+            h: 1
+          line: 1
+          msg: <default= option select>
+          curs: !ruby/object:Chishiki::Pos
+            x: 30
+            y: 31
+            w: 1
+            h: 1
+        index: 1
+        grow: false
+        shrink: false
+      node: &61 !ruby/object:Chishiki::Label
+        pos: !ruby/object:Chishiki::Pos
+          x: -16
+          y: 30
+          w: 0
+          h: 0
+        msg: ￭──o
+        color: 1
+      marker: &60 !ruby/object:Chishiki::Label
+        pos: !ruby/object:Chishiki::Pos
+          x: 5
+          y: 30
+          w: 0
+          h: 0
+        msg: ' '
+        color: 2
+      wpipe: &62 !ruby/object:Chishiki::Label
+        pos: !ruby/object:Chishiki::Pos
+          x: -12
+          y: 30
+          w: 0
+          h: 0
+        msg: ─────────────────
+        color: 1
+      cib: 5
+      height: 0
+      created: false
+      pipe: &59 !ruby/object:Chishiki::Pipe
+        msg: '|'
+        pos: !ruby/object:Chishiki::Pos
+          x: -16
+          y: 29
+          w: 0
+          h: 0
+        parent: *2
+        target: *58
+        change: 1
+        offset: 0
+        amount: 1
+        color: 1
+      widgets:
+      - *59
+      - *60
+      - *61
+      - *62
+      - *63
+    txt: &68 !ruby/object:Chishiki::Text
+      pos: !ruby/object:Chishiki::Pos
+        x: 3
+        y: 10
         w: 40
         h: 1
       list:
       - !ruby/object:Chishiki::Line
         pos: !ruby/object:Chishiki::Pos
-          x: 2
-          y: 4
+          x: 3
+          y: 10
           w: 40
           h: 1
         line: 0
         msg: '[options]'
         curs: !ruby/object:Chishiki::Pos
-          x: 11
-          y: 4
+          x: 12
+          y: 10
           w: 1
           h: 1
       index: 0
       grow: false
       shrink: false
-    node: &60 !ruby/object:Chishiki::Label
+    node: &66 !ruby/object:Chishiki::Label
       pos: !ruby/object:Chishiki::Pos
         x: -19
-        y: 4
+        y: 10
         w: 0
         h: 0
-      msg: ￭─o
-      color: 3
-    marker: &59 !ruby/object:Chishiki::Label
+      msg: ￭──o
+      color: 5
+    marker: &65 !ruby/object:Chishiki::Label
       pos: !ruby/object:Chishiki::Pos
-        x: 1
-        y: 4
+        x: 2
+        y: 10
         w: 0
         h: 0
       msg: ' '
       color: 2
-    wpipe: &61 !ruby/object:Chishiki::Label
+    wpipe: &67 !ruby/object:Chishiki::Label
       pos: !ruby/object:Chishiki::Pos
-        x: -16
-        y: 4
+        x: -15
+        y: 10
         w: 0
         h: 0
       msg: ─────────────────
-      color: 3
-    cib: 23
+      color: 5
+    cib: 25
     height: 0
     created: false
-    pipe: &58 !ruby/object:Chishiki::Pipe
+    pipe: &64 !ruby/object:Chishiki::Pipe
       msg: '|'
       pos: !ruby/object:Chishiki::Pos
         x: -19
-        y: 3
+        y: 9
         w: 0
         h: 0
       parent: *1
@@ -887,68 +965,68 @@
       change: 2
       offset: -1
       amount: 1
-      color: 3
+      color: 5
     widgets:
-    - *58
-    - *59
-    - *60
-    - *61
-    - *62
-  txt: &67 !ruby/object:Chishiki::Text
+    - *64
+    - *65
+    - *66
+    - *67
+    - *68
+  txt: &73 !ruby/object:Chishiki::Text
     pos: !ruby/object:Chishiki::Pos
       x: 0
-      y: 2
+      y: 8
       w: 40
       h: 1
     list:
     - !ruby/object:Chishiki::Line
       pos: !ruby/object:Chishiki::Pos
         x: 0
-        y: 2
+        y: 8
         w: 40
         h: 1
       line: 0
-      msg: eii [options] [table]
+      msg: eii [options] [table] args
       curs: !ruby/object:Chishiki::Pos
-        x: 21
-        y: 2
+        x: 26
+        y: 8
         w: 1
         h: 1
     index: 0
     grow: false
     shrink: false
-  node: &65 !ruby/object:Chishiki::Label
+  node: &71 !ruby/object:Chishiki::Label
     pos: !ruby/object:Chishiki::Pos
-      x: -21
-      y: 2
+      x: -22
+      y: 8
       w: 0
       h: 0
-    msg: ￭─o
+    msg: ￭──o
     color: 3
-  marker: &64 !ruby/object:Chishiki::Label
+  marker: &70 !ruby/object:Chishiki::Label
     pos: !ruby/object:Chishiki::Pos
       x: -1
-      y: 2
+      y: 8
       w: 0
       h: 0
     msg: ' '
     color: 2
-  wpipe: &66 !ruby/object:Chishiki::Label
+  wpipe: &72 !ruby/object:Chishiki::Label
     pos: !ruby/object:Chishiki::Pos
       x: -18
-      y: 2
+      y: 8
       w: 0
       h: 0
     msg: ─────────────────
-    color: 3
-  cib: 25
+    color: 5
+  cib: 27
   height: 0
   created: false
-  pipe: &63 !ruby/object:Chishiki::Pipe
+  pipe: &69 !ruby/object:Chishiki::Pipe
     msg: '|'
     pos: !ruby/object:Chishiki::Pos
-      x: -21
-      y: 1
+      x: -22
+      y: 7
       w: 0
       h: 0
     parent: !ruby/object:Chishiki::NilBranch {}
@@ -958,9 +1036,9 @@
     amount: -1
     color: 1
   widgets:
-  - *63
-  - *64
-  - *65
-  - *66
-  - *67
-:focus: *20
+  - *69
+  - *70
+  - *71
+  - *72
+  - *73
+:focus: *25
