@@ -28,9 +28,29 @@ read_s_args()
 {
   while (($#)) && [[ $1 != -* ]]
   do
-  sargs+=("$1")
-  shift
+    sargs+=("$1")
+    shift
   done
+}
+
+exec_sql()
+{
+  db=../bin/eib.db
+  touch $db
+  echo "$*"
+  res=$(sqlite3 --batch $db "$*")
+  echo "$res"
+}
+
+sql_select()
+{
+  sql="SELECT * FROM master;"
+}
+
+sql_insert()
+{
+  if [ -z $4 ]; then ver='1'; else ver=$4; fi;
+  sql="INSERT INTO master VALUES ( null, '$1', '$2', '$3', '$ver');"
 }
 
 if [ -z $1 ]
@@ -44,21 +64,21 @@ while getopts ":s:i:u:d:l:h" o; do
             usage
             ;;
         s)
-            read_s_args ${@:2}
-            if [ ${#sargs[@]} -eq 4 ]
-            then
-            reader ${sargs[@]:1}
-            echo $title
-            echo $year
-            echo $author
-          else
-            echo wrong number of args. Expecting 4, got ${#sargs[@]}.
-            usage
-          fi
+              reader ${sargs[@]:1}
+              sql_select
+              exec_sql "$sql"
             ;;
         i)
-            arg=${OPTARG}
-            echo $arg
+            read_s_args ${@:2}
+            if [ ${#sargs[@]} -eq 4 -o 5 ]
+            then
+              reader ${sargs[@]:1}
+              sql_insert ${sargs[@]:1}
+              exec_sql $sql
+            else
+              echo "wrong number of args. Expecting [4||5], got ${#sargs[@]}."
+              usage
+            fi
             ;;
         u)
             arg=${OPTARG}
