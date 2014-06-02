@@ -26,7 +26,7 @@ reader()
 
 read_s_args()
 {
-  while (($#)) && [[ $1 != -* ]]
+  while (($#)) && [ $1 != -* ]
   do
     sargs+=("$1")
     shift
@@ -36,9 +36,9 @@ read_s_args()
 exec_sql()
 {
   db=../bin/eib.db
+  dbrc=eiirc
   touch $db
-  echo "$*"
-  res=$(sqlite3 --batch $db "$*")
+  res=$(sqlite3 --init $dbrc --batch $db "$*")
   echo "$res"
 }
 
@@ -64,9 +64,9 @@ while getopts ":s:i:u:d:l:h" o; do
             usage
             ;;
         s)
-              reader ${sargs[@]:1}
-              sql_select
-              exec_sql "$sql"
+            reader ${sargs[@]:1}
+            sql_select
+            exec_sql "$sql"
             ;;
         i)
             read_s_args ${@:2}
