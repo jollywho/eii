@@ -39,12 +39,13 @@ exec_sql()
   dbrc=eiirc
   touch $db
   res=$(sqlite3 --init $dbrc --batch $db "$*")
-  echo "$res"
+  echo "$res" | less -R
 }
 
 sql_select()
 {
-  sql="SELECT * FROM master;"
+  sql="SELECT * FROM $1"
+  #sql="SELECT * FROM $1 WHERE $2 = $3;"
 }
 
 sql_insert()
@@ -64,8 +65,9 @@ while getopts ":s:i:u:d:l:h" o; do
             usage
             ;;
         s)
+            read_s_args ${@:1}
             reader ${sargs[@]:1}
-            sql_select
+            sql_select ${sargs[@]:1}
             exec_sql "$sql"
             ;;
         i)

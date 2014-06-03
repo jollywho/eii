@@ -1,3 +1,2 @@
 .headers on
-.mode line
-.width 3 4 6 4 6
+.mode column
