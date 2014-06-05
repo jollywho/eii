@@ -1,0 +1,359 @@
+---
+:branch: &1 !ruby/object:Chishiki::Branch
+  parent: 
+  name: branch_1
+  pos: !ruby/object:Chishiki::Pos
+    x: 0
+    y: 0
+    w: 0
+    h: 0
+  children:
+  - &2 !ruby/object:Chishiki::Branch
+    parent: *1
+    name: branch_2
+    pos: !ruby/object:Chishiki::Pos
+      x: 3
+      y: 2
+      w: 0
+      h: 0
+    children:
+    - !ruby/object:Chishiki::Branch
+      parent: *2
+      name: branch_3
+      pos: !ruby/object:Chishiki::Pos
+        x: 6
+        y: 5
+        w: 0
+        h: 0
+      children: []
+      txt: &7 !ruby/object:Chishiki::Text
+        pos: !ruby/object:Chishiki::Pos
+          x: 6
+          y: 5
+          w: 40
+          h: 1
+        list:
+        - !ruby/object:Chishiki::Line
+          pos: !ruby/object:Chishiki::Pos
+            x: 6
+            y: 5
+            w: 40
+            h: 1
+          line: 0
+          msg: 'cannot add type-specific fields '
+          curs: !ruby/object:Chishiki::Pos
+            x: 38
+            y: 5
+            w: 1
+            h: 1
+          carry: ''
+        - !ruby/object:Chishiki::Line
+          pos: !ruby/object:Chishiki::Pos
+            x: 6
+            y: 6
+            w: 40
+            h: 1
+          line: 1
+          msg: to the master table
+          curs: !ruby/object:Chishiki::Pos
+            x: 25
+            y: 6
+            w: 1
+            h: 1
+        index: 1
+        grow: false
+        shrink: false
+      node: &5 !ruby/object:Chishiki::Label
+        pos: !ruby/object:Chishiki::Pos
+          x: -16
+          y: 5
+          w: 0
+          h: 0
+        msg: ￭──o
+        color: 5
+      marker: &4 !ruby/object:Chishiki::Label
+        pos: !ruby/object:Chishiki::Pos
+          x: 5
+          y: 5
+          w: 0
+          h: 0
+        msg: ' '
+        color: 2
+      wpipe: &6 !ruby/object:Chishiki::Label
+        pos: !ruby/object:Chishiki::Pos
+          x: -12
+          y: 5
+          w: 0
+          h: 0
+        msg: ─────────────────
+        color: 5
+      cib: 2
+      height: 0
+      created: false
+      pipe: &3 !ruby/object:Chishiki::Pipe
+        msg: '|'
+        pos: !ruby/object:Chishiki::Pos
+          x: -16
+          y: 4
+          w: 0
+          h: 0
+        parent: *2
+        target: *2
+        change: 3
+        offset: -1
+        amount: 2
+        color: 5
+      widgets:
+      - *3
+      - *4
+      - *5
+      - *6
+      - *7
+    txt: &12 !ruby/object:Chishiki::Text
+      pos: !ruby/object:Chishiki::Pos
+        x: 3
+        y: 2
+        w: 40
+        h: 1
+      list:
+      - !ruby/object:Chishiki::Line
+        pos: !ruby/object:Chishiki::Pos
+          x: 3
+          y: 2
+          w: 40
+          h: 1
+        line: 0
+        msg: 'one master table with a lookup '
+        curs: !ruby/object:Chishiki::Pos
+          x: 34
+          y: 2
+          w: 1
+          h: 1
+        carry: ''
+      - !ruby/object:Chishiki::Line
+        pos: !ruby/object:Chishiki::Pos
+          x: 3
+          y: 3
+          w: 40
+          h: 1
+        line: 1
+        msg: field for the type of entry
+        curs: !ruby/object:Chishiki::Pos
+          x: 30
+          y: 3
+          w: 1
+          h: 1
+        carry: ''
+      index: 1
+      grow: false
+      shrink: false
+    node: &10 !ruby/object:Chishiki::Label
+      pos: !ruby/object:Chishiki::Pos
+        x: -19
+        y: 2
+        w: 0
+        h: 0
+      msg: ￭──o
+      color: 1
+    marker: &9 !ruby/object:Chishiki::Label
+      pos: !ruby/object:Chishiki::Pos
+        x: 2
+        y: 2
+        w: 0
+        h: 0
+      msg: '|'
+      color: 2
+    wpipe: &11 !ruby/object:Chishiki::Label
+      pos: !ruby/object:Chishiki::Pos
+        x: -15
+        y: 2
+        w: 0
+        h: 0
+      msg: ─────────────────
+      color: 4
+    cib: 5
+    height: 0
+    created: false
+    pipe: &8 !ruby/object:Chishiki::Pipe
+      msg: '|'
+      pos: !ruby/object:Chishiki::Pos
+        x: -19
+        y: 1
+        w: 0
+        h: 0
+      parent: *1
+      target: *1
+      change: 2
+      offset: -1
+      amount: 1
+      color: 1
+    widgets:
+    - *8
+    - *9
+    - *10
+    - *11
+    - *12
+    status: 
+  - !ruby/object:Chishiki::Branch
+    parent: *1
+    name: branch_2
+    pos: !ruby/object:Chishiki::Pos
+      x: 3
+      y: 8
+      w: 0
+      h: 0
+    children: []
+    txt: &17 !ruby/object:Chishiki::Text
+      pos: !ruby/object:Chishiki::Pos
+        x: 3
+        y: 8
+        w: 40
+        h: 1
+      list:
+      - !ruby/object:Chishiki::Line
+        pos: !ruby/object:Chishiki::Pos
+          x: 3
+          y: 8
+          w: 40
+          h: 1
+        line: 0
+        msg: 'a table per type with a minimum '
+        curs: !ruby/object:Chishiki::Pos
+          x: 35
+          y: 8
+          w: 1
+          h: 1
+        carry: ''
+      - !ruby/object:Chishiki::Line
+        pos: !ruby/object:Chishiki::Pos
+          x: 3
+          y: 9
+          w: 40
+          h: 1
+        line: 1
+        msg: number of shared field names
+        curs: !ruby/object:Chishiki::Pos
+          x: 31
+          y: 9
+          w: 1
+          h: 1
+      index: 1
+      grow: false
+      shrink: false
+    node: &15 !ruby/object:Chishiki::Label
+      pos: !ruby/object:Chishiki::Pos
+        x: -19
+        y: 8
+        w: 0
+        h: 0
+      msg: ￭──o
+      color: 1
+    marker: &14 !ruby/object:Chishiki::Label
+      pos: !ruby/object:Chishiki::Pos
+        x: 2
+        y: 8
+        w: 0
+        h: 0
+      msg: ' '
+      color: 2
+    wpipe: &16 !ruby/object:Chishiki::Label
+      pos: !ruby/object:Chishiki::Pos
+        x: -15
+        y: 8
+        w: 0
+        h: 0
+      msg: ─────────────────
+      color: 1
+    cib: 2
+    height: 0
+    created: false
+    pipe: &13 !ruby/object:Chishiki::Pipe
+      msg: '|'
+      pos: !ruby/object:Chishiki::Pos
+        x: -19
+        y: 7
+        w: 0
+        h: 0
+      parent: *1
+      target: *2
+      change: 2
+      offset: 0
+      amount: 5
+      color: 1
+    widgets:
+    - *13
+    - *14
+    - *15
+    - *16
+    - *17
+    status: 
+  txt: &22 !ruby/object:Chishiki::Text
+    pos: !ruby/object:Chishiki::Pos
+      x: 0
+      y: 0
+      w: 40
+      h: 1
+    list:
+    - !ruby/object:Chishiki::Line
+      pos: !ruby/object:Chishiki::Pos
+        x: 0
+        y: 0
+        w: 40
+        h: 1
+      line: 0
+      msg: how to layout tables
+      curs: !ruby/object:Chishiki::Pos
+        x: 20
+        y: 0
+        w: 1
+        h: 1
+    index: 0
+    grow: false
+    shrink: false
+  node: &20 !ruby/object:Chishiki::Label
+    pos: !ruby/object:Chishiki::Pos
+      x: -22
+      y: 0
+      w: 0
+      h: 0
+    msg: ￭──o
+    color: 3
+  marker: &19 !ruby/object:Chishiki::Label
+    pos: !ruby/object:Chishiki::Pos
+      x: -1
+      y: 0
+      w: 0
+      h: 0
+    msg: ' '
+    color: 2
+  wpipe: &21 !ruby/object:Chishiki::Label
+    pos: !ruby/object:Chishiki::Pos
+      x: -18
+      y: 0
+      w: 0
+      h: 0
+    msg: ─────────────────
+    color: 5
+  cib: 10
+  height: 0
+  created: false
+  pipe: &18 !ruby/object:Chishiki::Pipe
+    msg: '|'
+    pos: !ruby/object:Chishiki::Pos
+      x: -22
+      y: -1
+      w: 0
+      h: 0
+    parent: !ruby/object:Chishiki::NilBranch {}
+    target: *1
+    change: 0
+    offset: -1
+    amount: -1
+    color: 1
+  widgets:
+  - *18
+  - *19
+  - *20
+  - *21
+  - *22
+:focus: *2
