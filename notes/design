@@ -1,42 +1,67 @@
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ━━━━━━━━━━━━━(DB-schema)━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 books       movies
 -----       ------
 id          id
 name        name
 author      author
 year        year
-
-━━━━━━━(Select * FROM * WHERE * = *)━━━━━━━
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-A) iterate tables and combine
-
-SELECT * FROM tbl_list AS t
-for i in t
-  SELECT * FROM i
-end
+A)━━━━━━━(Select * FROM * WHERE * = *)━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+##iterate tables and combine##
 
 SELECT * FROM tbl_list as t
 for [i | argv_tables > 0] in t
-  SELECT * FROM i.field_names as f
+  SELECT * FROM i.field_list as f
   fields = [v | argv_fields > 0]
     SELECT fields FROM t
     [ | argv_crtieria > 0 ]
     WHERE fields[...] = argv_criteria
 
-Dependencies:
-D-1) sqlite fetch list of tables.
-D-2) sqlite fetch list of field names per table.
+##Dependencies:##
+D-1) sqlite fetch list of existing tables as
+tbl_list.
+D-2) sqlite fetch list of existing field names
+per table as field_list.
 
-Problems:
+##Problems:##
 P-1) supplied field names that don't exist in
 one table but do in another.
 A-1) always query for list of tables/ fields and
 check against the list for existence to avoid
 sqlite returning errors.
-P1-1) poor scalability because checking
+
+P-2) poor scalability because checking
 for all tables -> for all fields.
-S1-1) there are existence checks that avoid this problem.
+S-2) there are existence checks that avoid this problem.
 the only overhead is querying every table (less if specified)
 for its name and fields. the remaining logic is the same
 as a regualr query.
+
+P-3) no associations made in getopts for
+  table1 -> field1, table2 -> field2.
+instead, it presents as:
+for all tables unless specified AS t
+  field1 (if exists in t), field2 (if exists in t).
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+B)━━━━━(DELETE * FROM * WHERE * = *)━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+##delete tables and combine##
+
+SELECT * FROM tbl_list as t
+for [i | argv_tables > 0] in t
+  SELECT * FROM i.field_list as f
+  fields = [v | argv_fields > 0]
+    DELETE fields FROM t
+*   WHERE fields[...] = argv_criteria
+
+*WHERE clause required for delete.
+
+##Dependencies##
+Same as A:##iterate tables and combine##.
+
+##Problems::##
+Same as A:##iterate tables and combine##.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
