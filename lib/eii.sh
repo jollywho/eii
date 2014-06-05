@@ -42,16 +42,38 @@ exec_sql()
   echo "$res" | less -R
 }
 
+query_sql()
+{
+  db=../bin/eib.db
+  touch $db
+  res=$(sqlite3 --batch $db "$*")
+}
+
+sql_tables()
+{
+  sql="SELECT name FROM sqlite_master
+  WHERE type = 'table';"
+  query_sql "$sql"
+  sql_fields "$res"
+}
+
+sql_fields()
+{
+  sql="PRAGMA table_info($1);"
+  query_sql "$sql"
+  fields=$(echo "$res" | cut -d '|' -f2)
+}
+
 sql_select()
 {
-  sql="SELECT * FROM $1"
-  #sql="SELECT * FROM $1 WHERE $2 = $3;"
+  sql="SELECT * FROM $1 WHERE $2 = $3;"
 }
 
 sql_insert()
 {
   if [ -z $4 ]; then ver='1'; else ver=$4; fi;
-  sql="INSERT INTO master VALUES ( null, '$1', '$2', '$3', '$ver');"
+  sql="INSERT INTO master VALUES
+  ( null, '$1', '$2', '$3', '$ver');"
 }
 
 if [ -z $1 ]
@@ -67,6 +89,8 @@ while getopts ":s:i:u:d:l:h" o; do
         s)
             read_s_args ${@:1}
             reader ${sargs[@]:1}
+            sql_tables
+            echo "$fields"
             sql_select ${sargs[@]:1}
             exec_sql "$sql"
             ;;
@@ -78,7 +102,8 @@ while getopts ":s:i:u:d:l:h" o; do
               sql_insert ${sargs[@]:1}
               exec_sql $sql
             else
-              echo "wrong number of args. Expecting [4||5], got ${#sargs[@]}."
+              echo "wrong number of args.
+                Expecting [4||5], got ${#sargs[@]}."
               usage
             fi
             ;;
