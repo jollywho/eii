@@ -16,8 +16,6 @@ title=
 year=
 author=
 
-count=
-
 reader()
 {
   ary=($@)
@@ -30,7 +28,6 @@ read_s_args()
 {
   while (($#)) && [[ $1 != -* ]]
   do
-    ((count++))
     sargs+=("$1")
     shift
   done
@@ -85,8 +82,6 @@ sql_insert()
     usage
   fi
 
-  count=
-
   while (($#)); do
     case "$1" in
       -h)
@@ -131,8 +126,4 @@ sql_insert()
         ;;
     esac
     shift
-    for i in $count
-    do
-      shift
-    done
   done
