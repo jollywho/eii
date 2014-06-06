@@ -16,6 +16,8 @@ title=
 year=
 author=
 
+count=
+
 reader()
 {
   ary=($@)
@@ -26,7 +28,8 @@ reader()
 
 read_s_args()
 {
-  while (($#)) && [ $1 != -* ]
+  count=3
+  while (($#)) && [[ $1 != -* ]]
   do
     sargs+=("$1")
     shift
@@ -73,59 +76,63 @@ sql_select()
 sql_insert()
 {
   if [ -z $4 ]; then ver='1'; else ver=$4; fi;
-  sql="INSERT INTO master VALUES
-  ( null, '$1', '$2', '$3', '$ver');"
-}
+    sql="INSERT INTO master VALUES
+    ( null, '$1', '$2', '$3', '$ver');"
+  }
 
-if [ -z $1 ]
-then
-  usage
-fi
+  if [ -z $1 ]
+  then
+    usage
+  fi
 
-while getopts ":s:i:u:d:l:h" o; do
-    case "${o}" in
-        h)
-            usage
-            ;;
-        s)
-          echo $1 $2
-            read_s_args ${@:1}
+  count=
+
+  while (($#)); do
+    case "$1" in
+      -h)
+          usage
+          ;;
+      -s)
+          read_s_args ${@}
+          sql_select ${@:2}
+          exec_sql "$sql"
+          ;;
+      -i)
+          read_s_args ${@:2}
+          if [ ${#sargs[@]} -eq 4 -o 5 ]
+          then
             reader ${sargs[@]:1}
-            sql_select ${sargs[@]:1}
-            exec_sql "$sql"
-            ;;
-        i)
-            read_s_args ${@:2}
-            if [ ${#sargs[@]} -eq 4 -o 5 ]
-            then
-              reader ${sargs[@]:1}
-              sql_insert ${sargs[@]:1}
-              exec_sql $sql
-            else
-              echo "wrong number of args.
-                Expecting [4||5], got ${#sargs[@]}."
-              usage
-            fi
-            ;;
-        u)
-            arg=${OPTARG}
-            echo $arg
-            ;;
-        d)
-            arg=${OPTARG}
-            echo $arg
-            ;;
-        l)
-            arg=${OPTARG}
-            echo $arg
-            ;;
-        :)
-            echo argument required
+            sql_insert ${sargs[@]:1}
+            exec_sql $sql
+          else
+            echo "wrong number of args.
+            Expecting [4||5], got ${#sargs[@]}."
             usage
-            ;;
-        \?)
-            echo invalid option
-            usage
-            ;;
+          fi
+          ;;
+      -u)
+        arg=${OPTARG}
+        echo $arg
+        ;;
+      -d)
+        arg=${OPTARG}
+        echo $arg
+        ;;
+      -l)
+        echo "||||||||||||"
+        ;;
+      :)
+        echo argument required
+        usage
+        ;;
+      \?)
+        echo invalid option
+        usage
+        ;;
     esac
-done
+    shift
+    for i in $count
+    do
+      shift
+    done
+  done
