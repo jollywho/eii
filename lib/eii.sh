@@ -28,9 +28,9 @@ reader()
 
 read_s_args()
 {
-  count=3
   while (($#)) && [[ $1 != -* ]]
   do
+    ((count++))
     sargs+=("$1")
     shift
   done
