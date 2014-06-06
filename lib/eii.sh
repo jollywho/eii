@@ -84,45 +84,37 @@ sql_insert()
 
   while (($#)); do
     case "$1" in
-      -h)
+      -h|--help)
+        usage
+        ;;
+      -s|--select)
+        read_s_args ${@}
+        sql_select ${@:2}
+        exec_sql "$sql"
+        ;;
+      -i|--insert)
+        read_s_args ${@}
+        if [ ${#sargs[@]} -eq 4 -o 5 ]
+        then
+          reader ${sargs[@]:1}
+          sql_insert ${sargs[@]:1}
+          exec_sql $sql
+        else
+          echo "wrong number of args.
+          Expecting [4||5], got ${#sargs[@]}."
           usage
-          ;;
-      -s)
-          read_s_args ${@}
-          sql_select ${@:2}
-          exec_sql "$sql"
-          ;;
-      -i)
-          read_s_args ${@:2}
-          if [ ${#sargs[@]} -eq 4 -o 5 ]
-          then
-            reader ${sargs[@]:1}
-            sql_insert ${sargs[@]:1}
-            exec_sql $sql
-          else
-            echo "wrong number of args.
-            Expecting [4||5], got ${#sargs[@]}."
-            usage
-          fi
-          ;;
-      -u)
+        fi
+        ;;
+      -u|--update)
         arg=${OPTARG}
         echo $arg
         ;;
-      -d)
+      -d|--delete)
         arg=${OPTARG}
         echo $arg
         ;;
-      -l)
+      -l|--list)
         echo "||||||||||||"
-        ;;
-      :)
-        echo argument required
-        usage
-        ;;
-      \?)
-        echo invalid option
-        usage
         ;;
     esac
     shift

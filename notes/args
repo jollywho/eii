@@ -9,6 +9,7 @@ eii [option] [argument] {...}
  | -i |         Insert
  | -d |         Delete
  | -l |         List
+ | -h |         Help/ Usage
 
 Select options
  | -t |         Table
@@ -54,12 +55,21 @@ specify what to filter against.
 P-2) field names listed are associated with
 every table supplied.
 e.g. eii -s -t books tv -c name revision
-A-2) call -s multiple times. in the program, count
+S-2) call -s multiple times. in the program, count
 the arguments used in each -s and increment the stack.
 e.g. eii -s -t books -c revision -s tv -c name
 
 P-3) multiple arguments are not handled by getopts!
-A-3) 
+S-3) stop using getopts and make a custom argument parser.
+e.g. #read_s_args()#
+read argument and shift until a new option ("-*") is read.
+
+P-4) no catch-all condition for invalid input.
+S-4) within each option, parse for new options as arguments
+in a recursive method.
+e.g. [-s [-t [table] -c [column] -f [filter] -v [values]]]
+or, less verbose:
+eii [suid ([tcfv]) | hl]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ━━━━━━━━━━━━━━━━━━━━━━━━━(Examples)━━━━━━━━━━━━━━━━━━━━━━━━━
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
