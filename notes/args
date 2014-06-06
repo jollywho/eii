@@ -1,0 +1,100 @@
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━(Args)━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+eii [option] [argument] {...}
+
+[options [sudil] [tcfv]]
+ | -s |         Select
+ | -u |         Update
+ | -i |         Insert
+ | -d |         Delete
+ | -l |         List
+
+Select options
+ | -t |         Table
+ | -c |         display column (defaults to filter)
+
+Filter options
+ | -f    |      Filter column (overwrite default filter)
+ | -v[N] |      values supplied for filter.
+                A -v will filter for field names by:
+                1) fields supplied in -f arguments
+                2) fields supplied in -c arguments
+                3) all fields
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━(Details)━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Select
+  [table] { N }
+  [field] { N }
+  [criteria] { N }
+
+##Examples:##
+1. eii -s -t books tv -f name -c name=john
+select tables books & tv
+containing the name john
+
+2. eii -s -t books -f name -t tv -f year
+select table books
+with the name field
+and
+select table tv
+with the year field
+
+3. eii -s -c name=john
+select all tables
+containing the name john
+
+##Problems:##
+P-1) criteria cannot specify which table and
+which field to filter against.
+S-1) have a table#N and field#N option to
+specify what to filter against.
+
+P-2) field names listed are associated with
+every table supplied.
+e.g. eii -s -t books tv -c name revision
+A-2) call -s multiple times. in the program, count
+the arguments used in each -s and increment the stack.
+e.g. eii -s -t books -c revision -s tv -c name
+
+P-3) multiple arguments are not handled by getopts!
+A-3) 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━(Examples)━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+____________________________________________________________
+eii -s -t books -c name year -v1 john
+select table books
+where the first field name supplied contains john
+____________________________________________________________
+eii -s -t books tv -v john
+select table books
+where any (default={supplied fields, all fields})
+field name contains john
+____________________________________________________________
+eii -s -t books -c name -v john -t tv -c name -v firefly
+select table books
+containing the name john
+and select table tv
+containing the name firefly
+____________________________________________________________
+eii -s -t books -c name -v john \
+  -t tv -c name, year -v firefly
+  -t anime -c year -v 2014
+select table books
+containing the name john
+and select table tv
+containing the name or year firefly
+and select the table anime
+containing the year 2014
+____________________________________________________________
+eii -s -t books anime tv -f name year -v firefly 2014
+select tables books anime tv
+containing the name firefly and year 2014
+(this returns all fields in each table)
+____________________________________________________________
+eii -s -t books anime -v firefly
+select tables books anime
+containing any fields with firefly
+____________________________________________________________

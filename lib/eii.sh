@@ -67,6 +67,7 @@ sql_fields()
 sql_select()
 {
   sql="SELECT * FROM $1 WHERE $2 = $3;"
+  echo "$sql"
 }
 
 sql_insert()
@@ -87,10 +88,9 @@ while getopts ":s:i:u:d:l:h" o; do
             usage
             ;;
         s)
+          echo $1 $2
             read_s_args ${@:1}
             reader ${sargs[@]:1}
-            sql_tables
-            echo "$fields"
             sql_select ${sargs[@]:1}
             exec_sql "$sql"
             ;;
