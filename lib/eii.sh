@@ -56,7 +56,7 @@ sql_fields()
 {
   sql="PRAGMA table_info($1);"
   res="$(query_sql "$sql")"
-  echo "$res" | cut -d '|' -f2
+  echo "$res" | cut -d '|' -f2 | tr '\n' ',' | sed 's/,$//g'
 }
 
 sql_select()
@@ -65,7 +65,8 @@ sql_select()
   then
     echo "SELECT $1 FROM $2;"
   else
-    echo "SELECT $1 FROM $2 WHERE $3 = $4;"
+    echo $#
+    echo "SELECT $1 FROM $2 WHERE $3;"
   fi
 }
 
@@ -126,6 +127,30 @@ while (($#)); do
   shift
 done
 #━━━━━━━━━━━━━━━━━━━━━━━━━(Main)━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+concat_sql()
+{
+  column=$(echo $1 | tr "," " ")
+  ch=$3
+  count=0
+
+  if [ ${#1} -ne ${#2} ]
+  then
+    rep=$(for i in ${column[@]};do echo "$2,";done;)
+    values=($(echo $rep | tr "," " "))
+    echo ${values[2]}
+  else
+    values=$(echo $2 | tr "," " ")
+  fi
+
+  for s in ${column[@]}
+  do
+    sql+=" $s = ${values[$count]} $ch"
+    ((count++))
+  done
+  echo $sql | sed 's/or$//g'
+}
+
 if [ -z $option ]
 then
   exit
@@ -141,10 +166,12 @@ then
   if [ -z "$filters" ] && [ -n "$values" ]
   then
     table_data
+    concat_sql ${anime[@]} ${values[@]} or
   fi
   if [ -z $columns ]; then columns="*"; fi
 
-  # loop tables
-  exec_sql $(sql_select $columns ${tables[1]} $filters $values)
-  exec_sql $(sql_select $columns ${tables[0]} $filters $values)
+  #todo: loop tables
+  sql_select $columns ${tables[1]} $filters $values
+  #exec_sql $(sql_select $columns ${tables[1]} $filters $values)
+  #exec_sql $(sql_select $columns ${tables[0]} $filters $values)
 fi

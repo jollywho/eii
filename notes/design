@@ -10,7 +10,7 @@ year        year
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 A)━━━━━━━━━━━━━━━━━━(Select * FROM * WHERE * = *)━━━━━━━━━━━
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-##iterate tables and combine##
+##schema: iterate tables and combine##
 
 SELECT * FROM tbl_list as t
 for [i | argv_tables > 0] in t
@@ -20,6 +20,45 @@ for [i | argv_tables > 0] in t
     [ | argv_crtieria > 0 ]
     WHERE fields[...] = argv_criteria
 
+##sql_concat##
+sql_concat [columns] [filters] [oper]
+
+if [ ${#1} -ne ${#2} ]
+  error
+else
+  column=$(echo $1 | tr "," " ")
+  filter=$(echo $2 | tr "," " ")
+  count=0
+  for s in $column
+    sql+=" $s = ${filter[$count]}"
+    ((count++))
+  done
+fi
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#no filters
+tbl_list = table_data
+for table in tbl_list
+  select * from table
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#columns but no filter
+tbl_list = table_data
+for table in tbl_list
+  field_list = field_data table
+  select field_list from table
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#columns and filter
+tbl_list = table_data
+for table in tbl_list
+  sql_concat column_list filters
+  select field_list from table where filters
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#filter but no columns
+tbl_lsit = table_data
+for table in tbl_list
+  field_list = field_data table
+  sql_concat field_list filters
+  select field_list from table where filters
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ##Dependencies:##
 D-1) sqlite fetch list of existing tables as
 tbl_list.
@@ -45,6 +84,23 @@ P-3) no associations made in getopts for
 instead, it presents as:
 for all tables unless specified AS t
   field1 (if exists in t), field2 (if exists in t).
+
+P-4) behavior of filters is awkward.
+-c id name -v 2 3
+where id = 2 and name = 3
+or
+where id = 2 and 3 or name = 2 and 3
+-v 2 3
+where [each field] = 2 and 3
+-f id name -v 2 3
+where id = 2 and name = 3
+-c id -f name -v 3
+where name = 3
+S-4) behavior as so:
+column|filter|value||id = 2 and name = 3
+column|no filter|value||id = 2 || 3 or name = 2 || 3
+filter option uses exact order of filters to values
+no filter option uses supplied columns to all values
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ━━━━━━━━━━━━━━━━━━━━(Nested options)━━━━━━━━━━━━━━━━━━━━━━━━
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
