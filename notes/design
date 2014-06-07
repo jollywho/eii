@@ -1,15 +1,15 @@
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-━━━━━━━━━━━━━(DB-schema)━━━━━━━━━━━━━━━━━━━
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━(DB-schema)━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 books       movies
 -----       ------
 id          id
 name        name
 author      author
 year        year
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-A)━━━━━━━(Select * FROM * WHERE * = *)━━━━━
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+A)━━━━━━━━━━━━━━━━━━(Select * FROM * WHERE * = *)━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ##iterate tables and combine##
 
 SELECT * FROM tbl_list as t
@@ -29,7 +29,7 @@ per table as field_list.
 ##Problems:##
 P-1) supplied field names that don't exist in
 one table but do in another.
-A-1) always query for list of tables/ fields and
+S-1) always query for list of tables/ fields and
 check against the list for existence to avoid
 sqlite returning errors.
 
@@ -45,9 +45,20 @@ P-3) no associations made in getopts for
 instead, it presents as:
 for all tables unless specified AS t
   field1 (if exists in t), field2 (if exists in t).
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-B)━━━━━(DELETE * FROM * WHERE * = *)━━━━━━━
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━(Nested options)━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+eii -s -t books -c name year -f name -v "unix systems"
+
+while $# do
+case $1
+-s) read_s_args ${@}      | -t books
+-t) read_s_args ${@}      | -c name year
+-f) read_s_args ${@}      | -f name
+-v) read_s_args ${@}      | -v "unix systems"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+B)━━━━━━━━━━━━━━━(DELETE * FROM * WHERE * = *)━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ##delete tables and combine##
 
 SELECT * FROM tbl_list as t
@@ -64,4 +75,4 @@ Same as A:##iterate tables and combine##.
 
 ##Problems::##
 Same as A:##iterate tables and combine##.
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
