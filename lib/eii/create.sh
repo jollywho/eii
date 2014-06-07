@@ -10,17 +10,38 @@ sql_drop="
 DROP TABLE books;"
 
 sql_create="
-CREATE TABLE master (
+CREATE TABLE book (
   id INTEGER PRIMARY KEY,
   name TEXT,
-  author TEXT,
-  year TEXT,
+  writer TEXT,
+  date TEXT,
   version TEXT
+);
+CREATE TABLE movie (
+  id INTEGER PRIMARY KEY,
+  name TEXT,
+  director TEXT,
+  writer TEXT,
+  date TEXT
+);
+CREATE TABLE anime (
+  id INTEGER PRIMARY KEY,
+  name TEXT,
+  writer TEXT,
+  date TEXT,
+  episodes NUMBER
+);
+CREATE TABLE tv (
+  id INTEGER PRIMARY KEY,
+  name TEXT,
+  writer TEXT,
+  date TEXT,
+  episodes NUMBER
 );"
 
 sql_insert="
 INSERT INTO master VALUES ( null, $2, $3, $4, $5 );"
-
+exec_sql "$sql_create"
 if [ "$1" = "-n" ]
 then
   echo new
