@@ -22,21 +22,21 @@ exec_sql()
 {
   db=../bin/eib.db
   touch $db
-  res=$(sqlite3 --batch $db "$@")
-  echo "$res" | less -R
+  res=$(sqlite3 --batch $db "$*")
+  echo "$(echo "$res")"
 }
 
 query_sql()
 {
   db=../bin/eib.db
   touch $db
-  echo "$(sqlite3 --batch $db "$@")"
+  echo "$(sqlite3 --batch $db "$*")"
 }
 
 sql_tables()
 {
   sql="SELECT name FROM sqlite_master
-  WHERE type = 'table';"
+    WHERE type = 'table';"
   pool=' ' read -a res <<< $(query_sql "$sql")
   echo ${res[@]}
 }
@@ -50,8 +50,6 @@ table_data()
     m=$(sql_fields "$t")
     eval "$t=($m)"
   done
-  echo ${book[@]}
-  echo ${anime[@]}
 }
 
 sql_fields()
@@ -63,7 +61,7 @@ sql_fields()
 
 sql_select()
 {
-  if [ $# -eq 4 ]
+  if [ -z "$3" ] || [ -z "$4" ]
   then
     echo "SELECT $1 FROM $2;"
   else
@@ -137,19 +135,16 @@ then
   set -f
   if [ -z $tables ];
   then
-    gen_fields
+    echo wa
   fi
 
-  if [ -z $filters ] && [ -n $values ]
+  if [ -z "$filters" ] && [ -n "$values" ]
   then
     table_data
   fi
-exit
   if [ -z $columns ]; then columns="*"; fi
-  if [ -z $filters ]; then filters="*"; fi
-  echo tables:  ${tables[@]}
-  echo columns: ${columns[@]}
-  echo filters: ${filters[@]}
-  echo values:  ${values[@]}
-  exec_sql $(sql_select $columns $tables $filters $values)
+
+  # loop tables
+  exec_sql $(sql_select $columns ${tables[1]} $filters $values)
+  exec_sql $(sql_select $columns ${tables[0]} $filters $values)
 fi
