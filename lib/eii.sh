@@ -61,11 +61,10 @@ sql_fields()
 
 sql_select()
 {
-  if [ -z "$3" ] || [ -z "$4" ]
+  if [ -z "$3" ]
   then
     echo "SELECT $1 FROM $2;"
   else
-    echo $#
     echo "SELECT $1 FROM $2 WHERE $3;"
   fi
 }
@@ -138,7 +137,6 @@ concat_sql()
   then
     rep=$(for i in ${column[@]};do echo "$2,";done;)
     values=($(echo $rep | tr "," " "))
-    echo ${values[2]}
   else
     values=$(echo $2 | tr "," " ")
   fi
@@ -166,12 +164,14 @@ then
   if [ -z "$filters" ] && [ -n "$values" ]
   then
     table_data
-    concat_sql ${anime[@]} ${values[@]} or
+    m=$(echo "${tables[1]}")
+    fields=$(eval echo "$"$m"")
+    filters=$(concat_sql $fields ${values[@]} or)
   fi
   if [ -z $columns ]; then columns="*"; fi
 
   #todo: loop tables
-  sql_select $columns ${tables[1]} $filters $values
-  #exec_sql $(sql_select $columns ${tables[1]} $filters $values)
+  sql_select $columns ${tables[1]} "$filters"
+  exec_sql $(sql_select $columns ${tables[1]} $filters)
   #exec_sql $(sql_select $columns ${tables[0]} $filters $values)
 fi
