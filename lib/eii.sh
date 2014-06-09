@@ -33,7 +33,6 @@ then
 #fixme: concat_sql can't take an array without breaking
 #       the third parameter. fix by sending values as csv
 #       and parse it from within function
-
     filters=$(concat_sql $fields ${values[@]} or)
   fi
   if [ -z $columns ]; then columns="*"; fi

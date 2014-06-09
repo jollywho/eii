@@ -36,7 +36,8 @@ concat_sql()
     local sql+=" $s = '${values[$count]}' $ch"
     ((count++))
   done
-  echo $sql | sed 's/or$//g'
+  str=$(printf 's/%s$//g' $ch)
+  echo $sql | sed $str
 }
 
 exec_sql()
