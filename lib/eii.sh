@@ -11,17 +11,21 @@ then
   exit
 elif [ $option == "-s" ]
 then
+
   echo _____run_____
   set -f
-  if [ -z $tables ];
+
+  if [ -z "$tables" ];
   then
-    echo wa
+    echo gen tables
+    table_data
   fi
 
   #todo: loop tables
 
   if [ -z "$filters" ] && [ -n "$values" ]
   then
+    echo gen filters
     table_data
     m=$(echo "${tables[1]}")
     fields=$(eval echo "$"$m"")
