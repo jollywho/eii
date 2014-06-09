@@ -19,21 +19,21 @@ read_s_args()
 
 concat_sql()
 {
-  column=$(echo $1 | tr "," " ")
-  ch=$3
-  count=0
+  local column=$(echo $1 | tr "," " ")
+  local ch=$3
+  local count=0
 
   if [ ${#1} -ne ${#2} ]
   then
-    rep=$(for i in ${column[@]};do echo "$2,";done;)
-    values=($(echo $rep | tr "," " "))
+    local rep=$(for i in ${column[@]};do echo "$2,";done;)
+    local values=($(echo $rep | tr "," " "))
   else
-    values=$(echo $2 | tr "," " ")
+    local values=$(echo $2 | tr "," " ")
   fi
 
   for s in ${column[@]}
   do
-    sql+=" $s = '${values[$count]}' $ch"
+    local sql+=" $s = '${values[$count]}' $ch"
     ((count++))
   done
   echo $sql | sed 's/or$//g'
@@ -42,42 +42,42 @@ concat_sql()
 exec_sql()
 {
   echo $@
-  db=../bin/eib.db
+  local db=../bin/eib.db
   touch $db
-  res=$(sqlite3 --batch $db "$*")
+  local res=$(sqlite3 --batch $db "$*")
   echo "$(echo "$res")"
 }
 
 query_sql()
 {
-  db=../bin/eib.db
+  local db=../bin/eib.db
   touch $db
   echo "$(sqlite3 --batch $db "$*")"
 }
 
 sql_tables()
 {
-  sql="SELECT name FROM sqlite_master
-  WHERE type = 'table';"
-  pool=' ' read -a res <<< $(query_sql "$sql")
-  echo ${res[@]}
+  local sql="SELECT name FROM sqlite_master WHERE type = 'table';"
+  local vars="$(query_sql "$sql")"
+  echo "$vars"
 }
 
 table_data()
 {
-  res=$(sql_tables)
-  x=($res)
+  local res=$(sql_tables)
+  tables=($res)
+  local x=($res)
   for t in "${x[@]}"
   do
-    m=$(sql_fields "$t")
+    local m=$(sql_fields "$t")
     eval "$t=($m)"
   done
 }
 
 sql_fields()
 {
-  sql="PRAGMA table_info($1);"
-  res="$(query_sql "$sql")"
+  local sql="PRAGMA table_info($1);"
+  local res="$(query_sql "$sql")"
   echo "$res" | cut -d '|' -f2 | tr '\n' ',' | sed 's/,$//g'
 }
 
@@ -94,6 +94,6 @@ sql_select()
 sql_insert()
 {
   if [ -z $4 ]; then ver='1'; else ver=$4; fi;
-    sql="INSERT INTO master VALUES
+    local sql="INSERT INTO master VALUES
     ( null, '$1', '$2', '$3', '$ver');"
   }
