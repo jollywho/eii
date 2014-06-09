@@ -19,24 +19,30 @@ read_s_args()
 
 concat_sql()
 {
-  local column=$(echo $1 | tr "," " ")
-  local ch=$3
+  echo $@
+  local oper=$1
+  local columns=$(echo $2 | tr "," " ")
   local count=0
 
-  if [ ${#1} -ne ${#2} ]
+  if [ $oper = 'or' ] # no filter
   then
-    local rep=$(for i in ${column[@]};do echo "$2,";done;)
-    local values=($(echo $rep | tr "," " "))
+    # concat values with operator
+    for ea in ${@:3}
+    do
+      str+="'$ea' or "
+    done
+    values=$(echo $str | sed 's/or$//g')
   else
-    local values=$(echo $2 | tr "," " ")
+    local values=$(echo ${@:3} | tr "," " ")
   fi
 
-  for s in ${column[@]}
+  for name in ${columns[@]}
   do
-    local sql+=" $s = '${values[$count]}' $ch"
+    local sql+=" $name = $values $oper"
     ((count++))
   done
-  str=$(printf 's/%s$//g' $ch)
+
+  str=$(printf 's/%s$//g' $oper)
   echo $sql | sed $str
 }
 
