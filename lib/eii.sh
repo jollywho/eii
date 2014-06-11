@@ -15,7 +15,7 @@ then
   echo _____run_____
   set -f
 
-  # generate tables if none given
+  # generate tables if none supplied
   if [ -z "$tables" ];
   then
     table_data
@@ -23,32 +23,34 @@ then
 
   for table in ${tables[@]}
   do
-    filters=$(echo ${filters[@]} | tr " " ",")
-    columns=$(echo ${columns[@]} | tr " " ",")
+    s_filter=$(echo ${filters[@]} | tr " " ",")
+    s_column=$(echo ${columns[@]} | tr " " ",")
+    s_value=$(echo ${values[@]} | tr " " ",")
 
-    # has no columns && has values
-    if [ -z "$columns" ] && [ -n "$values" ]
+    if [ -z "$s_filter" ]
     then
       # generate columns for table
-      columns=$(eval echo "$"$m"" | tr " " ",")
-      m=$(echo "$table") #single table for debug
-      concat_sql or $columns $values}
-      #filters=$(concat_sql ${fields[@]} ${values[@]} or)
+      eval "$table=$(sql_fields $table)"
+      s_column=$(eval echo "$"$table"" | tr " " ",")
     fi
 
-    # has filters
-    if [ -n "$filters" ]
+    if [ -n "$s_filter" ] && [ -z "$s_column" ]
     then
-      # has no columns
-      if [ -n "$columns" ]
+      s_column=$(echo ${s_filter[@]} | tr " " ",")
+    fi
+
+    if [ -n "$s_value" ]
+    then
+      if [ -z "$s_filter" ]
       then
-        columns=$(echo ${filters[@]} | tr " " ",")
+        s_filter=$(concat_sql or $s_column $s_value)
+      else
+        s_filter=$(concat_sql and $s_column $s_value)
       fi
     fi
 
-    # if nothing above set columns, use wildchar
-    if [ -z $columns ]; then columns="*"; fi
+    if [ -z $s_column ]; then columns="*"; fi
 
-    exec_sql $(sql_select $columns $table "$filters")
+    exec_sql $(sql_select "$s_column" $table "$s_filter")
   done
 fi

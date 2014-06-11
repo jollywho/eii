@@ -19,7 +19,6 @@ read_s_args()
 
 concat_sql()
 {
-  echo $@
   local oper=$1
   local columns=$(echo $2 | tr "," " ")
   local count=0
