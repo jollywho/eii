@@ -22,22 +22,14 @@ concat_sql()
   local oper=$1
   local columns=$(echo $2 | tr "," " ")
   local count=0
-
-  if [ $oper = 'or' ] # no filter
-  then
-    # concat values with operator
-    for ea in ${@:3}
-    do
-      str+="'$ea' or "
-    done
-    values=$(echo $str | sed 's/or$//g')
-  else
-    local values=$(echo ${@:3} | tr "," " ")
-  fi
+  local values=$(echo ${@:3} | tr "," " ")
 
   for name in ${columns[@]}
   do
-    local sql+=" $name = $values $oper"
+    for ea in ${values[@]}
+    do
+      local sql+=" $name = '$ea' $oper"
+    done
     ((count++))
   done
 

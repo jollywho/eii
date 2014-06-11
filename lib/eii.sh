@@ -25,9 +25,9 @@ then
   do
     s_filter=$(echo ${filters[@]} | tr " " ",")
     s_column=$(echo ${columns[@]} | tr " " ",")
-    s_value=$(echo ${values[@]} | tr " " ",")
+    s_value=$(echo ${values[@]})
 
-    if [ -z "$s_filter" ]
+    if [ -z "$s_filter" ] && [ -z "$s_column" ]
     then
       # generate columns for table
       eval "$table=$(sql_fields $table)"

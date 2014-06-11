@@ -37,7 +37,7 @@ no values
 #default
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-no columns => gen columns
+no columns && values => gen columns
 filters => oper=and
 no filters => oper=or
 values => !concat
