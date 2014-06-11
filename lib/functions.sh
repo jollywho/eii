@@ -22,7 +22,7 @@ concat_sql()
   local oper=$1
   local columns=$(echo $2 | tr "," " ")
   local count=0
-  local values=$(echo ${@:3} | tr "," " ")
+  local values=$(echo ${@:3})
 
   for name in ${columns[@]}
   do

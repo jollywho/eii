@@ -34,9 +34,10 @@ then
       s_column=$(eval echo "$"$table"" | tr " " ",")
     fi
 
+    # use columns as filter
     if [ -n "$s_filter" ] && [ -z "$s_column" ]
     then
-      s_column=$(echo ${s_filter[@]} | tr " " ",")
+      s_column=$(echo ${s_filter[@]})
     fi
 
     if [ -n "$s_value" ]
