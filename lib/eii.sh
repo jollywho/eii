@@ -40,7 +40,6 @@ then
     then
       if [ -z "$s_filter" ]
       then
-        echo _____________
         s_filter=$(concat_sql or "$s_column" "$s_value")
       else
         s_filter=$(concat_sql and $s_column "$s_value")

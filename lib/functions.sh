@@ -32,6 +32,7 @@ concat_sql()
   local count=0
   eval local values=($3)
 
+  # -f does not 1:1 filter:value
   for name in ${columns[@]}
   do
     for ea in "${values[@]}"
@@ -47,11 +48,14 @@ concat_sql()
 
 exec_sql()
 {
-  echo $@
   local db=../bin/eib.db
   touch $db
   local res=$(sqlite3 --batch $db "$*")
-  echo "$(echo "$res")"
+  if [ -n "$res" ]
+  then
+    echo $table
+    echo "$(echo "$res")"
+  fi
 }
 
 query_sql()
