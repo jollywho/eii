@@ -1,4 +1,3 @@
-
 #━━━━━━━━━━━━━━━━━━━━━━━(Functions)━━━━━━━━━━━━━━━━━━━━━━━━━
 usage() { cat usage; }
 
@@ -10,9 +9,18 @@ read_s_args()
     exit
   fi
   local var="$1"
-  while (($#)) && [[ $2 != -* ]]
+  while (($#)) && [[ $2 != -* ]] && [[ $2 != '' ]]
   do
-    eval "$var+=("$2")"
+      if [ $var = "tables" ]; then
+        tables+=("$2")
+      elif [ $var = "columns" ]; then
+        columns+=("$2")
+      elif [ $var = "filters" ]; then
+        filters+=("$2")
+      elif [ $var = "values" ]; then
+        x=$(printf "'%s'" "$2")
+        values+=("$x")
+      fi
     shift
   done
 }
@@ -22,11 +30,11 @@ concat_sql()
   local oper=$1
   local columns=$(echo $2 | tr "," " ")
   local count=0
-  local values=$(echo ${@:3})
+  eval local values=($3)
 
   for name in ${columns[@]}
   do
-    for ea in ${values[@]}
+    for ea in "${values[@]}"
     do
       local sql+=" $name = '$ea' $oper"
     done

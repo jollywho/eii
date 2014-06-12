@@ -74,6 +74,10 @@ in a recursive method.
 e.g. [-s [-t [table] -c [column] -f [filter] -v [values]]]
 or, less verbose:
 eii [suid ([tcfv]) | hl]
+
+P-5) arguments with spaces get seprated. quotes don't help.
+S-5) format: option "two words" one word "three words"
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ━━━━━━━━━━━━━━━━━━━━━━━━━(Examples)━━━━━━━━━━━━━━━━━━━━━━━━━
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

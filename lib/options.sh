@@ -45,7 +45,7 @@ run()
         read_s_args filters ${@:2}
         ;;
       -v|--values)
-        read_s_args values ${@:2}
+        read_s_args values "${@:2}"
         ;;
     esac
     shift

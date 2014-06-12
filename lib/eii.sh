@@ -1,18 +1,14 @@
 #!/bin/bash
 source functions.sh
 source options.sh
-
 #━━━━━━━━━━━━━━━━━━━━━━━━━(Main)━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-run $@
+run "$@"
 
 if [ -z $option ]
 then
   exit
 elif [ $option == "-s" ]
 then
-
-  echo _____run_____
   set -f
 
   # generate tables if none supplied
@@ -25,7 +21,7 @@ then
   do
     s_filter=$(echo ${filters[@]} | tr " " ",")
     s_column=$(echo ${columns[@]} | tr " " ",")
-    s_value=$(echo ${values[@]})
+    s_value=$(echo -e ${values[@]})
 
     if [ -z "$s_filter" ] && [ -z "$s_column" ]
     then
@@ -44,9 +40,10 @@ then
     then
       if [ -z "$s_filter" ]
       then
-        s_filter=$(concat_sql or $s_column $s_value)
+        echo _____________
+        s_filter=$(concat_sql or "$s_column" "$s_value")
       else
-        s_filter=$(concat_sql and $s_column $s_value)
+        s_filter=$(concat_sql and $s_column "$s_value")
       fi
     fi
 
