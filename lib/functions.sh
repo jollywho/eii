@@ -106,4 +106,13 @@ sql_insert()
   if [ -z $4 ]; then ver='1'; else ver=$4; fi;
     local sql="INSERT INTO master VALUES
     ( null, '$1', '$2', '$3', '$ver');"
-  }
+}
+
+conta()
+{
+  echo $@
+  for i in "echo ${@:2} | cut -d ',' - f2"
+  do
+    echo $i
+  done
+}

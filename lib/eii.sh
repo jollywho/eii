@@ -4,16 +4,13 @@ source options.sh
 #━━━━━━━━━━━━━━━━━━━━━━━━━(Main)━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 run "$@"
 
-if [ -z $option ]
-then
+if [ -z $option ]; then
   exit
-elif [ $option == "-s" ]
-then
+elif [ $option == "-s" ]; then
   set -f
 
   # generate tables if none supplied
-  if [ -z "$tables" ];
-  then
+  if [ -z "$tables" ]; then
     table_data
   fi
 
@@ -23,30 +20,26 @@ then
     s_column=$(echo ${columns[@]} | tr " " ",")
     s_value=$(echo -e ${values[@]})
 
-    if [ -z "$s_filter" ] && [ -z "$s_column" ]
-    then
-      # generate columns for table
-      eval "$table=$(sql_fields $table)"
-      s_column=$(eval echo "$"$table"" | tr " " ",")
+    # get table fields
+    eval "$table=$(sql_fields $table)"
+
+    # set fnames to filter if no columns supplied
+    if [ -n "$s_filter" ] && [ -z "$s_column" ]; then
+      s_name=$(echo ${s_filter[@]})
+    # set fnames to column
+    else
+      s_name=$(echo ${s_columns[@]})
     fi
 
-    # use columns as filter
-    if [ -n "$s_filter" ] && [ -z "$s_column" ]
-    then
-      s_column=$(echo ${s_filter[@]})
-    fi
-
-    if [ -n "$s_value" ]
-    then
-      if [ -z "$s_filter" ]
-      then
-        s_filter=$(concat_sql or "$s_column" "$s_value")
+    if [ -n "$s_value" ]; then
+      if [ -z "$s_filter" ]; then
+        s_filter=$(concat_sql or "$s_name" "$s_value")
       else
-        s_filter=$(concat_sql and $s_column "$s_value")
+        s_filter=$(concat_sql and $s_name "$s_value")
       fi
     fi
 
-    if [ -z $s_column ]; then columns="*"; fi
+    if [ -z $s_column ]; then s_column="*"; fi
 
     exec_sql $(sql_select "$s_column" $table "$s_filter")
   done
