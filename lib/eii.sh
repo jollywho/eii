@@ -20,15 +20,15 @@ elif [ $option == "-s" ]; then
     s_column=$(echo ${columns[@]} | tr " " ",")
     s_value=$(echo -e ${values[@]})
 
-    # get table fields
-    eval "$table=$(sql_fields $table)"
-
-    # set fnames to filter if no columns supplied
+    # if filter but no columns, set names to filter
     if [ -n "$s_filter" ] && [ -z "$s_column" ]; then
       s_name=$(echo ${s_filter[@]})
-    # set fnames to column
-    else
+    # if column, set names to it
+    elif [ -n "$s_column" ]; then
       s_name=$(echo ${s_column[@]})
+    else
+      fields=$(sql_fields $table)
+      s_name=$(echo ${fields[@]})
     fi
 
     # generate filter segment of the sql
