@@ -31,14 +31,17 @@ elif [ $option == "-s" ]; then
       s_name=$(echo ${s_columns[@]})
     fi
 
+    # generate filter segment of the sql
     if [ -n "$s_value" ]; then
       if [ -z "$s_filter" ]; then
-        s_filter=$(concat_sql or "$s_name" "$s_value")
+        s_filter=$(gen_filter_loose or "$s_name" "$s_value")
       else
-        s_filter=$(concat_sql and $s_name "$s_value")
+        s_filter=$(gen_filter_strict and "$s_name" "$s_value")
       fi
     fi
 
+    # default selector when passed through all
+    # conditions above without column being set
     if [ -z $s_column ]; then s_column="*"; fi
 
     exec_sql $(sql_select "$s_column" $table "$s_filter")

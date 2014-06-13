@@ -25,23 +25,45 @@ read_s_args()
   done
 }
 
-concat_sql()
+gen_filter_strict()
 {
   local oper=$1
-  local columns=$(echo $2 | tr "," " ")
-  local count=0
+  local names=$(echo $2 | tr "," " ")
   eval local values=($3)
+  local c=0
 
-  # -f does not 1:1 filter:value
-  for name in ${columns[@]}
+  # for each name in names list create sql string
+  # with the aligning value in the values list
+  for name in ${names[@]}
   do
-    for ea in "${values[@]}"
-    do
-      local sql+=" $name = '$ea' $oper"
-    done
-    ((count++))
+      # [WHERE] name = 'value' operator
+      local sql+=" $name = '${values[$c]}' $oper"
+      ((c++))
   done
 
+  # remove trailing operator
+  str=$(printf 's/%s$//g' $oper)
+  echo $sql | sed $str
+}
+
+gen_filter_loose()
+{
+  local oper=$1
+  local names=$(echo $2 | tr "," " ")
+  eval local values=($3)
+
+  # for each name in names list, create sql string
+  # with every value in the values list
+  for name in ${names[@]}
+  do
+    for value in "${values[@]}"
+    do
+      # [WHERE] name = 'value' operator
+      local sql+=" $name = '$value' $oper"
+    done
+  done
+
+  # remove trailing operator
   str=$(printf 's/%s$//g' $oper)
   echo $sql | sed $str
 }
@@ -114,5 +136,10 @@ conta()
   for i in "echo ${@:2} | cut -d ',' - f2"
   do
     echo $i
+    if [ "$i" -eq "$1" ]; then
+      echo "Found"
+    else
+      echo "Not Found"
+    fi
   done
 }
