@@ -78,6 +78,22 @@ eii [suid ([tcfv]) | hl]
 P-5) arguments with spaces get seprated. quotes don't help.
 S-5) format: option "two words" one word "three words"
 
+P-6) error when supplying columns that don't exist on all
+tables in the selection.
+A-6) only select columns that exist. i.e. check if a
+supplied column exists in sql_fields(). if it doesn't,
+create a blank field in the selection. a blank field fills
+two purposes. reporting a mismatch field would prevent
+searching across multiple tables, or spamming an error on
+each column that doesn't exist. second, rather than failing
+silently, a blank field provides more information about
+either an intended or unintended column being matched.
+e.g. 
+"-s -t book tv -c id version"
+book    => [has version]
+tv      => [does not have version]
+SELECT id, version FROM book;
+SELECT id, "" AS version FROM tv;
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ━━━━━━━━━━━━━━━━━━━━━━━━━(Examples)━━━━━━━━━━━━━━━━━━━━━━━━━
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
