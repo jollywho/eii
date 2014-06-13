@@ -28,7 +28,7 @@ elif [ $option == "-s" ]; then
       s_name=$(echo ${s_filter[@]})
     # set fnames to column
     else
-      s_name=$(echo ${s_columns[@]})
+      s_name=$(echo ${s_column[@]})
     fi
 
     # generate filter segment of the sql
@@ -36,7 +36,7 @@ elif [ $option == "-s" ]; then
       if [ -z "$s_filter" ]; then
         s_filter=$(gen_filter_loose or "$s_name" "$s_value")
       else
-        s_filter=$(gen_filter_strict and "$s_name" "$s_value")
+        s_filter=$(gen_filter_strict or "$s_name" "$s_value")
       fi
     fi
 

@@ -8,19 +8,24 @@ read_s_args()
     echo "$1: argument required."
     exit
   fi
+
+  # argument type
   local var="$1"
+
+  # while arguments remain or new option or blank
   while (($#)) && [[ $2 != -* ]] && [[ $2 != '' ]]
   do
-      if [ $var = "tables" ]; then
-        tables+=("$2")
-      elif [ $var = "columns" ]; then
-        columns+=("$2")
-      elif [ $var = "filters" ]; then
-        filters+=("$2")
-      elif [ $var = "values" ]; then
-        x=$(printf "'%s'" "$2")
-        values+=("$x")
-      fi
+    if [ $var = "tables" ]; then
+      tables+=("$2")
+    elif [ $var = "columns" ]; then
+      columns+=("$2")
+    elif [ $var = "filters" ]; then
+      filters+=("$2")
+    elif [ $var = "values" ]; then
+      # simple way to handle spaces in quotes
+      x=$(printf "'%s'" "$2")
+      values+=("$x")
+    fi
     shift
   done
 }
@@ -98,12 +103,6 @@ table_data()
 {
   local res=$(sql_tables)
   tables=($res)
-  local x=($res)
-  for t in "${x[@]}"
-  do
-    local m=$(sql_fields "$t")
-    eval "$t=($m)"
-  done
 }
 
 sql_fields()
