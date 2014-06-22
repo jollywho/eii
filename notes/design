@@ -115,20 +115,25 @@ case $1
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 B)━━━━━━━━━━━━━━━(DELETE * FROM * WHERE * = *)━━━━━━━━━━━━━━
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-##delete tables and combine##
-
-SELECT * FROM tbl_list as t
-for [i | argv_tables > 0] in t
-  SELECT * FROM i.field_list as f
-  fields = [v | argv_fields > 0]
-    DELETE fields FROM t
-*   WHERE fields[...] = argv_criteria
-
-*WHERE clause required for delete.
-
-##Dependencies##
-Same as A:##iterate tables and combine##.
-
-##Problems::##
-Same as A:##iterate tables and combine##.
+#do a select then prompt for confirmation to delete records
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+C)━━━━━━━━━━━━━━━(UPDATE * WHERE * = *)━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SELECT _name_ FROM _table_ |
+  [ {WHERE _filter_ = _value_} ... ]
+UPDATE [table] SET [name] = [value] WHERE = [filter] = [val2]
+eii -u -t book -c id -f 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+D)━━━━━━━━━━━━━━━(INSERT * INTO *)━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+INSERT INTO _table_ {_value_} ...
+
+##Problems:##
+P-1) too many or too few supplied fields for a given table.
+S-1) run only if table name count == value count.
+P-2) duplicates.
+S-3) 
+P-3) adding to multiple tables at once instead of a specific
+table.
+S-3) show list of tables being inserted into and prompt for
+confirmation.

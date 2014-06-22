@@ -11,17 +11,7 @@ run()
         option="-s"
         ;;
       -i|--insert)
-        read_s_args ${@}
-        if [ ${#sargs[@]} -eq 4 -o 5 ]
-        then
-          reader ${sargs[@]:1}
-          sql_insert ${sargs[@]:1}
-          exec_sql $sql
-        else
-          echo "wrong number of args.
-          Expecting [4||5], got ${#sargs[@]}."
-          usage
-        fi
+        option="-i"
         ;;
       -u|--update)
         arg=${OPTARG}
