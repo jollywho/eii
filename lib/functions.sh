@@ -111,18 +111,3 @@ sql_fields()
   local res="$(query_sql "$sql")"
   echo "$res" | cut -d '|' -f2 | tr '\n' ',' | sed 's/,$//g'
 }
-
-sql_select()
-{
-  if [ -z "$3" ]
-  then
-    echo "SELECT $1 FROM $2;"
-  else
-    echo "SELECT $1 FROM $2 WHERE $3;"
-  fi
-}
-
-sql_insert()
-{
-    echo "INSERT INTO $1 VALUES ( $2 );"
-}

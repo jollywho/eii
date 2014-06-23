@@ -36,3 +36,13 @@ gen_filters()
     fi
   fi
 }
+
+sql_select()
+{
+  if [ -z "$3" ]
+  then
+    echo "SELECT $1 FROM $2;"
+  else
+    echo "SELECT $1 FROM $2 WHERE $3;"
+  fi
+}
