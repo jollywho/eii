@@ -133,17 +133,3 @@ sql_insert()
     local sql="INSERT INTO master VALUES
     ( null, '$1', '$2', '$3', '$ver');"
 }
-
-conta()
-{
-  echo $@
-  for i in "echo ${@:2} | cut -d ',' - f2"
-  do
-    echo $i
-    if [ "$i" -eq "$1" ]; then
-      echo "Found"
-    else
-      echo "Not Found"
-    fi
-  done
-}
