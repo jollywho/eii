@@ -30,7 +30,7 @@ read_s_args()
   done
 }
 
-gen_filter_strict()
+filter_strict()
 {
   local oper=$1
   local names=$(echo $2 | tr "," " ")
@@ -51,7 +51,7 @@ gen_filter_strict()
   echo $sql | sed $str
 }
 
-gen_filter_loose()
+filter_loose()
 {
   local oper=$1
   local names=$(echo $2 | tr "," " ")
