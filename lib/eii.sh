@@ -27,9 +27,6 @@ do
   if [ $option == "-s" ]; then
     run_select
   elif [ $option == "-i" ]; then
-    # eii -i -t book -v j j j
-    # field names for table
-    # compare column with values
     run_insert
   elif [ $option == "-u" ]; then
     echo

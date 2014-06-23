@@ -16,7 +16,8 @@ run_insert()
 
   # if enough values supplied for existing fields
   if [ $c_count -eq $v_count ]; then
-    echo ok
+    s_value=$(echo "$s_value" | tr ' ' ',' )
+    exec_sql $(sql_insert $table "$s_value")
   fi
 }
 
