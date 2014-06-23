@@ -20,26 +20,20 @@ if [ -n $option ]; then
     s_column=$(echo ${columns[@]} | tr " " ",")
     s_value=$(echo -e ${values[@]})
 
-    gen_names
-    gen_filters
-
-    # default selector when passed through all
-    # conditions above without column being set
-    if [ -z $s_column ]; then s_column="*"; fi
-
-    exec_sql $(sql_select "$s_column" $table "$s_filter")
-
+    if [ $option == "-s" ]; then
+      run_select
+    elif [ $option == "-i" ]; then
+      # eii -i -t book -v j j j
+      # field names for table
+      # need values; exit without
+      # compare column with values
+      echo
+    elif [ $option == "-u" ]; then
+      echo
+    elif [ $option == "-d" ]; then
+      # eii -d -t book | -c name | -v name_02
+      # need filters and values; exit without
+      echo
+    fi
   done
-elif [ $option == "-i" ]; then
-  # eii -i -t book -v j j j
-  # field names for table
-  # need values; exit without
-  # compare column with values
-  echo
-elif [ $option == "-u" ]; then
-  echo
-elif [ $option == "-d" ]; then
-  # eii -d -t book | -c name | -v name_02
-  # need filters and values; exit without
-  echo
 fi
