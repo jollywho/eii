@@ -7,7 +7,7 @@ run_select()
   # conditions above without column being set
   if [ -z $s_column ]; then s_column="*"; fi
 
-  if [ "$1" = "-t" ]; then echo $table; fi
+  echo $table
   exec_sql $(sql_select "$s_column" $table "$s_filter")
 }
 

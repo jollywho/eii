@@ -26,7 +26,7 @@ do
   s_value=$(echo -e ${values[@]})
 
   if [ $option == "-s" ]; then
-    run_select -t
+    run_select
   elif [ $option == "-i" ]; then
     run_insert
   elif [ $option == "-u" ]; then
