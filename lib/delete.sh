@@ -2,14 +2,20 @@ run_delete()
 {
   # exit if filter or value not supplied
   if [ -z "$s_filter" ] || [ -z "$s_value" ]; then
+    echo "Delete requires -f and -v"
     exit
   fi
   records=$(run_select)
   echo "$records"
+  gen_filters
   num=$(echo "$records" | wc -l)
   read -r -p "$num record(s) will be deleted. Continue [y/N]? " choice
-  echo $choice
-  #exec_sql $(sql_select "$s_column" $table "$s_filter")
+
+  case $choice in
+    [yY][eE][sS]|[yY])
+    exec_sql $(sql_delete $table "$s_filter")
+    ;;
+  esac
 }
 
 gen_filters()
@@ -18,4 +24,12 @@ gen_filters()
   if [ -n "$s_value" ]; then
     s_filter=$(filter_strict or "$s_filter" "$s_value")
   fi
+}
+
+sql_delete()
+{
+  tbl=$1
+  shift
+  criteria=$@
+  echo "DELETE FROM $tbl WHERE $criteria;"
 }
