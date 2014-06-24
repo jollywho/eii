@@ -80,7 +80,6 @@ exec_sql()
   local res=$(sqlite3 --batch $db "$*")
   if [ -n "$res" ]
   then
-    echo $table
     echo "$(echo "$res")"
   fi
 }

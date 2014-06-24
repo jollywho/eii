@@ -18,8 +18,7 @@ run()
         echo $arg
         ;;
       -d|--delete)
-        arg=${OPTARG}
-        echo $arg
+        option="-d"
         ;;
       -l|--list)
         echo "||||||||||||"

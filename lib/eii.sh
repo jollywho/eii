@@ -3,6 +3,7 @@ source functions.sh
 source options.sh
 source select.sh
 source insert.sh
+source delete.sh
 #━━━━━━━━━━━━━━━━━━━━━━━━━(Main)━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 run "$@"
 
@@ -25,7 +26,7 @@ do
   s_value=$(echo -e ${values[@]})
 
   if [ $option == "-s" ]; then
-    run_select
+    run_select -t
   elif [ $option == "-i" ]; then
     run_insert
   elif [ $option == "-u" ]; then
@@ -33,6 +34,6 @@ do
   elif [ $option == "-d" ]; then
     # eii -d -t book | -c name | -v name_02
     # need filters and values; exit without
-    echo
+    run_delete
   fi
 done
