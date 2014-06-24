@@ -6,9 +6,12 @@ run_delete()
     exit
   fi
   records=$(run_select)
+  ((num=$(echo "$records" | wc -l)-1))
+  if [ $num -eq 0 ]; then
+    return
+  fi
   echo "$records"
   gen_filters
-  num=$(echo "$records" | wc -l)
   read -r -p "$num record(s) will be deleted. Continue [y/N]? " choice
 
   case $choice in
