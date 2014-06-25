@@ -6,6 +6,7 @@ source insert.sh
 source delete.sh
 source update.sh
 #━━━━━━━━━━━━━━━━━━━━━━━━━(Main)━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+db=../bin/eii.db
 run "$@"
 
 #Disable file name generation using metacharacters

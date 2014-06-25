@@ -79,7 +79,6 @@ filter_loose()
 
 exec_sql()
 {
-  local db=../bin/eib.db
   touch $db
   local res=$(sqlite3 --batch $db "$*")
   if [ -n "$res" ]
@@ -90,7 +89,6 @@ exec_sql()
 
 query_sql()
 {
-  local db=../bin/eib.db
   touch $db
   echo "$(sqlite3 --batch $db "$*")"
 }
