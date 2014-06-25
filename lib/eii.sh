@@ -4,6 +4,7 @@ source options.sh
 source select.sh
 source insert.sh
 source delete.sh
+source update.sh
 #━━━━━━━━━━━━━━━━━━━━━━━━━(Main)━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 run "$@"
 
@@ -21,6 +22,7 @@ fi
 
 for table in ${tables[@]}
 do
+  s_newvalue=$(echo -e ${newvalues[@]})
   s_filter=$(echo ${filters[@]} | tr " " ",")
   s_column=$(echo ${columns[@]} | tr " " ",")
   s_value=$(echo -e ${values[@]})
@@ -30,10 +32,8 @@ do
   elif [ $option == "-i" ]; then
     run_insert
   elif [ $option == "-u" ]; then
-    echo
+    run_update
   elif [ $option == "-d" ]; then
-    # eii -d -t book | -c name | -v name_02
-    # need filters and values; exit without
     run_delete
   fi
 done

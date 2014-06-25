@@ -21,6 +21,10 @@ read_s_args()
       columns+=("$2")
     elif [ $var = "filters" ]; then
       filters+=("$2")
+    elif [ $var = "newvalues" ]; then
+      # simple way to handle spaces in quotes
+      x=$(printf "'%s'" "$2")
+      newvalues+=("$x")
     elif [ $var = "values" ]; then
       # simple way to handle spaces in quotes
       x=$(printf "'%s'" "$2")

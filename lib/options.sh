@@ -14,8 +14,7 @@ run()
         option="-i"
         ;;
       -u|--update)
-        arg=${OPTARG}
-        echo $arg
+        option="-u"
         ;;
       -d|--delete)
         option="-d"
@@ -24,7 +23,7 @@ run()
         echo "||||||||||||"
         ;;
         #━━━━━━━━━━━━━━━━━━━━━━━(Selectors)━━━━━━━━━━━━━━━━━━━━━━━━━
-        -t|--table)
+      -t|--table)
         read_s_args tables ${@:2}
         ;;
       -c|--column)
@@ -32,6 +31,9 @@ run()
         ;;
       -f|--filter)
         read_s_args filters ${@:2}
+        ;;
+      -n|--values)
+        read_s_args newvalues "${@:2}"
         ;;
       -v|--values)
         read_s_args values "${@:2}"
