@@ -16,7 +16,7 @@ run_update()
     return
   fi
   gen_updates
-  gen_filters
+  gen_updates_filters
 
   read -r -p "$num record(s) will be updated. Continue [y/N]? " choice
 
@@ -35,7 +35,7 @@ gen_updates()
   fi
 }
 
-gen_filters()
+gen_update_filters()
 {
   # generate filter segment of the sql
   if [ -n "$s_value" ]; then

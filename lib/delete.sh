@@ -11,7 +11,7 @@ run_delete()
     return
   fi
   echo "$records"
-  gen_filters
+  gen_del_filters
   read -r -p "$num record(s) will be deleted. Continue [y/N]? " choice
 
   case $choice in
@@ -21,7 +21,7 @@ run_delete()
   esac
 }
 
-gen_filters()
+gen_del_filters()
 {
   # generate filter segment of the sql
   if [ -n "$s_value" ]; then
