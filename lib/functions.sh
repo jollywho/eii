@@ -46,7 +46,7 @@ filter_strict()
   for name in ${names[@]}
   do
       # [WHERE] name = 'value' operator
-      local sql+=" $name = '${values[$c]}' $oper"
+      local sql+=" $name like '%${values[$c]}%' $oper"
       ((c++))
   done
 
@@ -68,7 +68,7 @@ filter_loose()
     for value in "${values[@]}"
     do
       # [WHERE] name = 'value' operator
-      local sql+=" $name = '$value' $oper"
+      local sql+=" $name like '%$value%' $oper"
     done
   done
 
