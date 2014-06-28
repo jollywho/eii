@@ -1,7 +1,7 @@
 run_select()
 {
-  gen_names
-  gen_filters
+  gen_sel_names
+  gen_sel_filters
 
   # default selector when passed through all
   # conditions above without column being set
@@ -11,22 +11,22 @@ run_select()
   exec_sql $(sql_select "$s_column" $table "$s_filter")
 }
 
-gen_names()
+gen_sel_names()
 {
   # if filter but no columns, set names to filter
   if [ -n "$s_filter" ] && [ -z "$s_column" ]; then
     s_name=$(echo ${s_filter[@]})
-    # if column but no filter, set names to column
+  # if column but no filter, set names to column
   elif [ -n "$s_column" ] && [ -z "$s_filter" ]; then
     s_name=$(echo ${s_column[@]})
-    # default names to whatever is in the table
+  # default names to whatever is in the table
   else
     fields=$(sql_fields $table)
     s_name=$(echo ${fields[@]})
   fi
 }
 
-gen_filters()
+gen_sel_filters()
 {
   # generate filter segment of the sql
   if [ -n "$s_value" ]; then
