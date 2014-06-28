@@ -1,4 +1,4 @@
-db=../../bin/eib.db
+db=../../bin/eii.db
 touch $db
 
 exec_sql()
@@ -20,23 +20,26 @@ CREATE TABLE book (
 CREATE TABLE movie (
   id INTEGER PRIMARY KEY,
   name TEXT,
-  director TEXT,
-  writer TEXT,
-  date TEXT
+  episodes NUMBER,
+  year TEXT,
+  category TEXT,
+  status TEXT
 );
 CREATE TABLE anime (
   id INTEGER PRIMARY KEY,
   name TEXT,
-  writer TEXT,
-  date TEXT,
-  episodes NUMBER
+  episodes NUMBER,
+  year TEXT,
+  category TEXT,
+  status TEXT
 );
 CREATE TABLE tv (
   id INTEGER PRIMARY KEY,
   name TEXT,
-  writer TEXT,
-  date TEXT,
-  episodes NUMBER
+  episodes NUMBER,
+  year TEXT,
+  category TEXT,
+  status TEXT
 );"
 
 sql_insert="
