@@ -1,12 +1,18 @@
 #!/bin/bash
-source functions.sh
-source options.sh
-source select.sh
-source insert.sh
-source delete.sh
-source update.sh
+eii=$(readlink $0)
+if [ -z $eii ]; then
+  eii=$(pwd $0)/eii
+else
+  eii=$(dirname $($eii $0))/eii
+fi
+source $eii/functions.sh
+source $eii/options.sh
+source $eii/select.sh
+source $eii/insert.sh
+source $eii/delete.sh
+source $eii/update.sh
 #━━━━━━━━━━━━━━━━━━━━━━━━━(Main)━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-db=../bin/eii.db
+db=$eii/../../bin/eii.db
 run "$@"
 
 #Disable file name generation using metacharacters

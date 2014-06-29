@@ -1,21 +1,27 @@
-db=../../bin/eib.db
-touch $db
-
-exec_sql()
+run_insert()
 {
-  echo $@
-  sqlite3 --batch $db "$*"
+  # exit if no values supplied
+  if [ -z "$s_value" ]; then
+    exit
+  fi
+
+  # count # of fields
+  fields=$(sql_fields $table)
+  s_name=$(echo ${fields[@]})
+  count=$(echo $s_name | tr -cd , | wc -c)
+  c_count=$((count+1))
+
+  v_count=($s_value)
+  v_count=${#v_count[@]}
+
+  # if enough values supplied for existing fields
+  if [ $c_count -eq $v_count ]; then
+    s_value=$(echo "$s_value" | tr ' ' ',' )
+    exec_sql $(sql_insert $table "$s_value")
+  fi
 }
 
-gen_vals()
+sql_insert()
 {
-  for i in $(seq 1 $2)
-  do
-    exec_sql "INSERT INTO $1 VALUES (null,'"name_$i"','"$i"',4,5);"
-  done
+   echo "INSERT INTO $1 VALUES ( $2 );"
 }
-
-gen_vals book 5
-gen_vals anime 10
-gen_vals movie 3
-gen_vals tv 7
