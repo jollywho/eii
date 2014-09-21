@@ -1,4 +1,4 @@
-db=../../bin/eii.db
+db=eii.db
 touch $db
 
 exec_sql()
@@ -10,37 +10,25 @@ sql_drop="
 DROP TABLE books;"
 
 sql_create="
-CREATE TABLE book (
+CREATE TABLE master (
   id INTEGER PRIMARY KEY,
   name TEXT,
-  writer TEXT,
   date TEXT,
+  type TEXT,
+  writer TEXT,
   version TEXT
 );
-CREATE TABLE movie (
-  id INTEGER PRIMARY KEY,
-  name TEXT,
-  episodes NUMBER,
-  year TEXT,
-  category TEXT,
-  status TEXT
-);
-CREATE TABLE anime (
-  id INTEGER PRIMARY KEY,
-  name TEXT,
-  episodes NUMBER,
-  year TEXT,
-  category TEXT,
-  status TEXT
-);
-CREATE TABLE tv (
-  id INTEGER PRIMARY KEY,
-  name TEXT,
-  episodes NUMBER,
-  year TEXT,
-  category TEXT,
-  status TEXT
-);"
+
+CREATE TABLE file (
+  master_id INTEGER,
+  filename TEXT,
+  episode TEXT,
+  subs TEXT,
+  checksum TEXT,
+  FOREIGN KEY (master_id) REFERENCES master(id)
+  PRIMARY KEY (master_id, episode)
+  );
+"
 
 sql_insert="
 INSERT INTO master VALUES ( null, $2, $3, $4, $5 );"
