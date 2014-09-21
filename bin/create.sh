@@ -20,12 +20,12 @@ CREATE TABLE master (
 );
 
 CREATE TABLE file (
-  master_id INTEGER,
-  filename TEXT,
+  master_id INTEGER NOT NULL,
+  filename TEXT NOT NULL,
   episode TEXT,
   subs TEXT,
   checksum TEXT,
-  FOREIGN KEY (master_id) REFERENCES master(id)
+  FOREIGN KEY (master_id) REFERENCES master(id),
   PRIMARY KEY (master_id, episode)
   );
 "

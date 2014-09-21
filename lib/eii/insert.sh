@@ -16,6 +16,14 @@ run_insert()
 
   str_vals=($s_value)
 
+  # if userow option
+  if [ $userow ]; then
+    prepa+=${str_vals[0]}
+    str_vals=("${str_vals[@]:1}")
+  else
+    prepa+='null'
+  fi
+
   # if one required field supplied;
   # add null or the supplied value
   # for the number of columns in the table
@@ -30,7 +38,7 @@ run_insert()
       fi
     done
     s_value=$(echo "$msg" | tr ' ' ',' )
-    exec_sql $(sql_insert $table "$s_value")
+    exec_sql $(sql_insert $table "$prepa""$s_value")
   else
     echo "not enough values supplied"
   fi
@@ -38,5 +46,5 @@ run_insert()
 
 sql_insert()
 {
-   echo "INSERT INTO $1 VALUES (null $2 );"
+  echo "INSERT INTO $1 VALUES ( $2 $3 );"
 }
