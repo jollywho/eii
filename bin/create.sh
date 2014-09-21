@@ -12,7 +12,7 @@ DROP TABLE books;"
 sql_create="
 CREATE TABLE master (
   id INTEGER PRIMARY KEY,
-  name TEXT,
+  name TEXT UNIQUE,
   date TEXT,
   type TEXT,
   writer TEXT,
