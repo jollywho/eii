@@ -45,9 +45,13 @@ filter_strict()
   # with the aligning value in the values list
   for name in ${names[@]}
   do
-      # [WHERE] name = 'value' operator
+    # [WHERE] name = 'value' operator
+    if [ $usexact ]; then
+      local sql+=" $name ='${values[$c]}' $oper"
+    else
       local sql+=" $name like '%${values[$c]}%' $oper"
-      ((c++))
+    fi
+    ((c++))
   done
 
   # remove trailing operator
@@ -67,8 +71,12 @@ filter_loose()
   do
     for value in "${values[@]}"
     do
+      if [ $usexact ]; then
+        local sql+=" $name = '$value' $oper"
+      else
+        local sql+=" $name like '%$value%' $oper"
+      fi
       # [WHERE] name = 'value' operator
-      local sql+=" $name like '%$value%' $oper"
     done
   done
 

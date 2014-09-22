@@ -39,6 +39,9 @@ run()
         read_s_args values "${@:2}"
         ;;
 #━━━━━━━━━━━━━━━━━━━━━━━(Misc)━━━━━━━━━━━━━━━━━━━━━━━━━
+      -x|--xact)
+        usexact=true
+        ;;
       -r|--rowid)
         userow=true
         ;;

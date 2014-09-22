@@ -19,6 +19,9 @@ gen_sel_names()
   # if column but no filter, set names to column
   elif [ -n "$s_column" ] && [ -z "$s_filter" ]; then
     s_name=$(echo ${s_column[@]})
+  # if column and filter, set names to column
+  elif [ -n "$s_column" ] && [ -n "$s_filter" ]; then
+    s_name=$(echo ${s_column[@]})
   # default names to whatever is in the table
   else
     fields=$(sql_fields $table)
@@ -30,7 +33,9 @@ gen_sel_filters()
 {
   # generate filter segment of the sql
   if [ -n "$s_value" ]; then
-    if [ -z "$s_filter" ]; then
+    if [ -n "$s_value" ] && [ -n "$s_filter" ]; then
+      s_filter=$(filter_loose or "$s_filter" "$s_value")
+    elif [ -z "$s_filter" ]; then
       s_filter=$(filter_loose or "$s_name" "$s_value")
     else
       s_filter=$(filter_strict or "$s_name" "$s_value")

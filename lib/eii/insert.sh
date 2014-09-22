@@ -38,7 +38,7 @@ run_insert()
       fi
     done
     s_value=$(echo "$msg" | tr ' ' ',' )
-    exec_sql $(sql_insert $table "$prepa""$s_value")
+    exec_sql $(sql_insert $table "$prepa" "$s_value")
   else
     echo "not enough values supplied"
   fi
