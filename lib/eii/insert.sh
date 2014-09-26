@@ -27,7 +27,7 @@ run_insert()
   # if one required field supplied;
   # add null or the supplied value
   # for the number of columns in the table
-  if [ $v_count -gt 1 ]; then
+  if [ $v_count -gt 0 ]; then
     for i in $(seq 0 $c_count);
     do
       tmp=${str_vals[$i]}
