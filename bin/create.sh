@@ -13,6 +13,7 @@ sql_create="
 CREATE TABLE master (
   id INTEGER PRIMARY KEY,
   name TEXT UNIQUE,
+  episodecount TEXT,
   date TEXT,
   type TEXT,
   writer TEXT,
