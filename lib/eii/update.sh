@@ -9,14 +9,19 @@ run_update()
     echo "Update requires -c, -n, -f, and -v"
     exit
   fi
+
+  tmp="${s_column}"
+  s_column="*"
   records=$(run_select)
-  echo "$records"
-  ((num=$(echo "$records" | wc -l)-1))
+  s_column="${tmp}"
+
+  ((num=$(echo "${records}" | wc -l)-1))
   if [ $num -eq 0 ]; then
+    echo "update will affect ${num} records."
     return
   fi
   gen_updates
-  gen_updates_filters
+  gen_update_filters
 
   read -r -p "$num record(s) will be updated. Continue [y/N]? " choice
 
