@@ -39,6 +39,10 @@ run()
         read_s_args values "${@:2}"
         ;;
 #━━━━━━━━━━━━━━━━━━━━━━━(Misc)━━━━━━━━━━━━━━━━━━━━━━━━━
+      -db|--database)
+        db="${@:2:1}"
+        shift
+        ;;
       -x|--xact)
         usexact=true
         ;;
