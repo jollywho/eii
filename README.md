@@ -1,8 +1,8 @@
 Convert standard sql queries
 ```
 SELECT id,name FROM master WHERE author like '%miyazaki%'
-``
-`
+```
+
        ^    ^    ^    ^    ^
        |    |    |    |    |
        v    v    v    v    v
