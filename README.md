@@ -36,3 +36,15 @@ UPDATE master SET town = 'ube' WHERE name = 'hideaki'
 ```sh
 eii -u -x -t master -c town -f name -v 'hideaki' -n 'ube'
 ```
+
+Delete
+```sql
+DELETE FROM master WHERE name = 'hideaki'
+DELETE FROM books WHERE author = 'hideaki'
+DELETE FROM author WHERE name = 'hideaki'
+``sh
+#if DB contains only 3 tables: master,books,author
+eii -d -x -f name author -v 'hideaki'
+#otherwise
+eii -d -x -t master books author -f name author -v 'hideaki'
+```
