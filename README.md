@@ -1,10 +1,38 @@
-Convert standard sql queries
+EII
+==
+EII is an sqlite wrapper that turns basic sql queries into bash arguments.
+
+Usage
+--
+Select
+```sql
+SELECT id,name FROM master WHERE author like '%hideaki%'
 ```
-SELECT id,name FROM master WHERE author like '%miyazaki%'
+```sh
+eii -s -t master -c id name -f author -v hideaki
+```
 
-#       ^    ^    ^    ^    ^
-#       |    |    |    |    |
-#       v    v    v    v    v
+Multiple table support
+```sql
+SELECT id FROM titles WHERE id = '2'
+SELECT id FROM authors WHERE id = '2'
+SELECT id FROM books WHERE id = '2'
+```
+```sh
+eii -s -t titles authors books -f id -v 2
+```
 
-eii -s -t master -c id name -f author -v miyazaki
+Insert
+```sql
+INSERT INTO master (id,name,age,date) VALUES (4, 'hideaki', 54, '20090101')
+```
+```sh
+eii -i -t master -v 45 'hideaki' 54 '20090101'
+```
+
+Update
+```sql
+UPDATE master SET town = 'ube' WHERE name = 'hideaki'
+```sh
+eii -u -x -t master -c town -f name -v 'hideaki' -n 'ube'
 ```
