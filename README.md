@@ -24,7 +24,7 @@ eii -s -t titles authors books -f id -v 2
 
 Insert
 ```sql
-INSERT INTO master (id,name,age,date) VALUES (4, 'hideaki', 54, '20090101')
+INSERT INTO master (id,name,age,date) VALUES (45, 'hideaki', 54, '20090101')
 ```
 ```sh
 eii -i -t master -v 45 'hideaki' 54 '20090101'

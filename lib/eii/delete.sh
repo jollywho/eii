@@ -5,7 +5,12 @@ run_delete()
     echo "Delete requires -f and -v"
     exit
   fi
+
+  tmp="${s_column}"
+  s_column="*"
   records=$(run_select)
+  s_column="${tmp}"
+
   ((num=$(echo "$records" | wc -l)-1))
   if [ $num -eq 0 ]; then
     return
