@@ -49,6 +49,9 @@ run()
       -r|--rowid)
         userow=true
         ;;
+      -tn|--tablename)
+        usetname=true
+        ;;
     esac
     shift
   done
