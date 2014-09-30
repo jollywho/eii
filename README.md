@@ -52,9 +52,8 @@ eii -d -x -t master books author -f name author -v 'hideaki'
 ```
 
 Chaining Statements
-
-#insert into table files using foreign key from master
 ```sql
+#insert into table files using foreign key from master
 INSERT INTO files (id,age) VALUES
 (
   (SELECT id FROM master where name = 'hideaki'),
