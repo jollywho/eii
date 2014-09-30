@@ -53,7 +53,7 @@ eii -d -x -t master books author -f name author -v 'hideaki'
 
 Chaining Statements
 ```sql
-#insert into table files using foreign key from master
+--insert into table files using foreign key from master
 INSERT INTO files (id,age) VALUES
 (
   (SELECT id FROM master where name = 'hideaki'),
@@ -62,5 +62,5 @@ INSERT INTO files (id,age) VALUES
 ```
 ```sh
 id=$(eii -s -x -t master -c id -f name -v 'hideaki')
-eii -i -r -t files -v ${id}
+eii -i -r -t files -v ${id} 30
 ```
