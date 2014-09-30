@@ -14,12 +14,12 @@ eii -s -t master -c id name -f author -v hideaki
 
 Multiple table support
 ```sql
-SELECT * FROM titles WHERE id = '2' or name = 'hideyaki'
-SELECT * FROM authors WHERE id = '2' or name = 'hideyaki'
-SELECT * FROM books WHERE id = '2' or name = 'hideyaki'
+SELECT * FROM titles WHERE id = '2' or name = 'hideaki'
+SELECT * FROM authors WHERE id = '2' or name = 'hideaki'
+SELECT * FROM books WHERE id = '2' or name = 'hideaki'
 ```
 ```sh
-eii -s -t titles authors books -f id name -v 2 'hideyaki'
+eii -s -t titles authors books -f id name -v 2 'hideaki'
 ```
 
 Insert
@@ -49,4 +49,19 @@ DELETE FROM author WHERE name = 'hideaki'
 eii -d -x -f name author -v 'hideaki'
 #otherwise
 eii -d -x -t master books author -f name author -v 'hideaki'
+```
+
+Chaining Statements
+
+#insert into table files using foreign key from master
+```sql
+INSERT INTO files (id,age) VALUES
+(
+  (SELECT id FROM master where name = 'hideaki'),
+  30
+)
+```
+```sh
+id=$(eii -s -x -t master -c id -f name -v 'hideaki')
+eii -i -r -t files -v ${id}
 ```
