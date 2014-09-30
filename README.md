@@ -14,12 +14,12 @@ eii -s -t master -c id name -f author -v hideaki
 
 Multiple table support
 ```sql
-SELECT id FROM titles WHERE id = '2'
-SELECT id FROM authors WHERE id = '2'
-SELECT id FROM books WHERE id = '2'
+SELECT * FROM titles WHERE id = '2' or name = 'hideyaki'
+SELECT * FROM authors WHERE id = '2' or name = 'hideyaki'
+SELECT * FROM books WHERE id = '2' or name = 'hideyaki'
 ```
 ```sh
-eii -s -t titles authors books -f id -v 2
+eii -s -t titles authors books -f id name -v 2 'hideyaki'
 ```
 
 Insert
