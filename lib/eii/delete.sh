@@ -11,7 +11,8 @@ run_delete()
   records=$(run_select)
   s_column="${tmp}"
 
-  ((num=$(echo "$records" | wc -l)-1))
+  [ $usetname ] && tname_os=-1
+  ((num=$(echo "${records}" | wc -l)${tname_os}))
   if [ $num -eq 0 ]; then
     return
   fi
