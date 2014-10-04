@@ -15,7 +15,7 @@ run_update()
   records=$(run_select)
   s_column="${tmp}"
 
-  [ $usetname ] && tname_os=-1
+  [ $USETNAME ] && tname_os=-1
   ((num=$(echo "${records}" | wc -l)${tname_os}))
   if [ $num -eq 0 ]; then
     echo "update will affect ${num} records."
@@ -24,7 +24,11 @@ run_update()
   gen_updates
   gen_update_filters
 
-  read -r -p "$num record(s) will be updated. Continue [y/N]? " choice
+  if [ ! $USEASK ]; then
+    read -r -p "$num record(s) will be updated. Continue [y/N]? " choice
+  else
+    choice="Y"
+  fi
 
   case $choice in
     [yY][eE][sS]|[yY])

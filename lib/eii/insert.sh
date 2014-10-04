@@ -16,8 +16,8 @@ run_insert()
 
   str_vals=($s_value)
 
-  # if userow option
-  if [ $userow ]; then
+  # if USEROW option
+  if [ $USEROW ]; then
     prepa+=${str_vals[0]}
     str_vals=("${str_vals[@]:1}")
   else

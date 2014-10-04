@@ -7,7 +7,7 @@ run_select()
   # conditions above without column being set
   if [ -z $s_column ]; then s_column="*"; fi
 
-  [ $usetname ] && echo $table
+  [ $USETNAME ] && echo $table
   exec_sql $(sql_select "$s_column" $table "$s_filter")
 }
 

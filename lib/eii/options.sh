@@ -44,13 +44,16 @@ run()
         shift
         ;;
       -x|--xact)
-        usexact=true
+        USEXACT=true
         ;;
       -r|--rowid)
-        userow=true
+        USEROW=true
+        ;;
+      -a|--asknope)
+        USEASK=true
         ;;
       -tn|--tablename)
-        usetname=true
+        USETNAME=true
         ;;
     esac
     shift
