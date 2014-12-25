@@ -1,0 +1,91 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH EII 1 "Tue 23 11:18:17 2014"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+.B eii 
+\- SQLite as getopts
+
+.SH SYNOPSIS
+.B eii
+.R [ \fIOPTIONS\fR... ] [ \fIArgs\fR... ]
+
+.SH SUMMARY
+.PP
+.B eii
+is a terminal-based wrapper for SQLite that iterates basic queries
+over an entire database.
+
+.SH COMMANDS
+.TP
+.B \-s, --select
+Select records.
+.TP
+.B \-i insert
+Insert records. Use with \fB\-r\fR to specify rowid.
+.TP
+.B \-u update
+Update records. Requires \fB\-f\fR and \fB\-n\fR.
+.TP
+.B \-d delete
+Delete records.
+.TP
+.B \-l --list
+List tables within database file.
+.SH FILTER OPTIONS
+.TP
+.B -t \fI<string>\fR ..., \fB\-\-table \fI<string>\fR ...
+Specify the list of tables that should be selected.
+Default is \fB*\fR.
+.TP
+.B -c \fI<string>\fR ..., \fB\-\-column \fI<string>\fR ...
+Specify the list of columns that should be used.
+Default is \fB*\fR.
+.TP
+.B -v \fI<string>\fR ..., \fB\-\-values \fI<string>\fR ...
+List of values used for evaluating matches.
+Default is \fB*\fR.
+.TP
+.B -f \fI<string>\fR ..., \fB\-\-filter \fI<string>\fR ...
+Filter criteria as a list of string values. This option is required when \fBeii\fR is run with the \fB\-u\fR or \fB\-i\fR commands.
+.TP
+.B -n \fI<string>\fR ..., \fB\-\-newvalues \fI<string>\fR ...
+List of values used for updating filtered selection. This option is required when \fBeii\fR is run with the \fB\-u\fR command.
+
+.SH OPTIONS
+.TP
+.B \-db \fIfile\fR, \fB\-\-database \fIfile\fR
+Use alternative database file.
+.TP
+.B \-x\fR, \fB\-\-exact\fR
+Enable exact matching of filter values.
+Default uses fuzzy matching.
+.TP
+.B \-a\fR, \fB\-\-asknope\fR
+Disable safety prompt when updating multiple records at once.
+.TP
+.B \-r\fR, \fB\-\-rowid\fR
+Specify that rowid is being manually supplied. Used with \fB\-i\fR.
+.TP
+.B \-tn\fR, \fB\-\-tablename\fR
+Show table name in output.
+
+.SH SEE ALSO
+http://github.com/jollywho/eii
+.br
+The github repo
+.SH AUTHOR
+This manual page was originally written by \fBchishiki\fR <works.kvollmer@gmail.com>.

@@ -43,7 +43,7 @@ run()
         db="${@:2:1}"
         shift
         ;;
-      -x|--xact)
+      -x|--exact)
         USEXACT=true
         ;;
       -r|--rowid)
