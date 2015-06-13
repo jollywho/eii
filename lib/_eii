@@ -1,0 +1,120 @@
+#compdef eii
+#zsh completion for eii
+#
+#eii - sqlite as bash arguments
+#
+_eii_all_tables() {_all_tables=($(./eii.sh -l)) }
+#_eii_all_columns() {_all_columns=($(./eii.sh -cl $1)) }
+_eii_all_columns() {_all_columns=($(./eii.sh -cl master)) }
+
+_eii_table_query()
+{
+  _eii_all_tables
+  _describe "table" _all_tables
+}
+
+_eii_column_query()
+{
+  _eii_all_columns
+  _describe "column" _all_columns
+}
+
+_eii_query_options()
+{
+  _arguments -s : \
+    '--column[column]' \
+    '--filter[filter]' \
+    '--value[value]' \
+    '*: :->'
+}
+
+_eii_table_options()
+{
+  _alternative \
+    'tables:table:_eii_table_query' \
+}
+
+_eii_command()
+{
+  local -a _eii_cmds
+  _eii_cmds=(
+  "insert:insert data"
+  "delete:delete data"
+  "update:update data"
+  "select:select data"
+  "list:list all tables"
+  )
+  _describe -t commands 'eii command' _eii_cmds
+}
+
+_eii_actions()
+{
+  # set state to last query opt
+  local m
+  while (($#)); do
+    case "$1" in
+      -c|--column)
+        m="column"
+        ;;
+      -f|--filter)
+        m="column"
+        ;;
+      -v|--value)
+        m="value"
+        ;;
+    esac
+    shift
+  done
+
+  # todo: opt arg values to remove duplicate
+  # table values are '^.*--|$'
+  # column values are '--column.*--|$'
+  #
+  # todo: * tables
+  # _eii_all_tables
+  # _eii_all_columns per table
+  # merge results
+  # remove where result match given values
+
+  # default opts and query opt for state
+  _eii_query_options
+  case ${m} in
+    column|filter)
+      _eii_column_query
+      ;;
+    value)
+      # [todo]: message
+      # -- column of param position-- #
+      ;;
+    *)
+      _eii_table_options
+  esac
+}
+
+_eii_comp() {
+  local cmd
+  if (( CURRENT > 2)); then
+    cmd=${words[2]}
+    (( CURRENT-- ))
+    shift words
+    case "${cmd}" in
+      sel|select)
+        _eii_actions ${words[@]:1}
+        ;;
+      ls|list)
+        # NOP
+        ;;
+      lc|columns)
+        # todo: command
+        # list tables to select
+        ;;
+      *)
+        _eii_command
+        ;;
+    esac
+  else
+    _eii_command
+  fi
+}
+
+_eii_comp

@@ -20,7 +20,10 @@ run()
         option="-d"
         ;;
       -l|--list)
-        echo "||||||||||||"
+        option="-l"
+        ;;
+      -cl|--columnlist)
+        option="-cl"
         ;;
 #━━━━━━━━━━━━━━━━━━━━━━━(Selectors)━━━━━━━━━━━━━━━━━━━━━━━━━
       -t|--table)

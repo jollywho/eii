@@ -23,6 +23,12 @@ fi
 if [ -z "$tables" ]; then
   table_data
 fi
+# show table list if requested
+if [ "$option" == "-l" ]; then
+  exec_sql $(echo ".tables")
+elif [ "$option" == "-cl" ]; then
+  echo $(sql_fields "$2" | tr ',' ' ')
+fi
 
 for table in ${tables[@]}
 do
