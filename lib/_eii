@@ -4,8 +4,9 @@
 #eii - sqlite as bash arguments
 #
 _eii_all_tables() {_all_tables=($(./eii.sh -l)) }
-#_eii_all_columns() {_all_columns=($(./eii.sh -cl $1)) }
-_eii_all_columns() {_all_columns=($(./eii.sh -cl master)) }
+_eii_all_columns() {_all_columns=($(./eii.sh -cl $1)) }
+_tables=()
+_columns=()
 
 _eii_table_query()
 {
@@ -15,8 +16,10 @@ _eii_table_query()
 
 _eii_column_query()
 {
-  _eii_all_columns
-  _describe "column" _all_columns
+  for tbl in $_tables; do
+    _eii_all_columns $tbl
+    _describe "column" _all_columns
+  done
 }
 
 _eii_query_options()
@@ -49,6 +52,8 @@ _eii_command()
 
 _eii_actions()
 {
+  _tables=($(echo "$@" | cut -d "-" -f1))
+
   # set state to last query opt
   local m
   while (($#)); do
