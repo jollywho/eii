@@ -1,34 +1,44 @@
-run()
+cmd()
 {
-  #━━━━━━━━━━━━━━━━━━━━━━━━(Options)━━━━━━━━━━━━━━━━━━━━━━━━━━
+  case "$1" in
+    select)
+      option="-s"
+      ;;
+    insert)
+      option="-i"
+      ;;
+    update)
+      option="-u"
+      ;;
+    delete)
+      option="-d"
+      ;;
+    list|ls)
+      option="-l"
+      ;;
+    colshow|cl)
+      option="-cl"
+      ;;
+  esac
+}
+
+tables()
+{
+  t=$(echo "${@:2}" | cut -d "-" -f1)
+  if [ -n "${t}" ]; then
+    read_s_args tables "${t}"
+  fi
+}
+
+opts()
+{
   while (($#)); do
     case "$1" in
       -h|--help)
         usage
         exit
         ;;
-      -s|--select)
-        option="-s"
-        ;;
-      -i|--insert)
-        option="-i"
-        ;;
-      -u|--update)
-        option="-u"
-        ;;
-      -d|--delete)
-        option="-d"
-        ;;
-      -l|--list)
-        option="-l"
-        ;;
-      -cl|--columnlist)
-        option="-cl"
-        ;;
 #━━━━━━━━━━━━━━━━━━━━━━━(Selectors)━━━━━━━━━━━━━━━━━━━━━━━━━
-      -t|--table)
-        read_s_args tables ${@:2}
-        ;;
       -c|--column)
         read_s_args columns ${@:2}
         ;;

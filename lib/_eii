@@ -3,8 +3,8 @@
 #
 #eii - sqlite as bash arguments
 #
-_eii_all_tables() {_all_tables=($(./eii.sh -l)) }
-_eii_all_columns() {_all_columns=($(./eii.sh -cl -t $1)) }
+_eii_all_tables() {_all_tables=($(./eii.sh list)) }
+_eii_all_columns() {_all_columns=($(./eii.sh cl "$@")) }
 _tables=()
 _columns=()
 
@@ -22,6 +22,7 @@ _eii_column_query()
     _eii_all_columns $tbl
     cols+=($_all_columns[@])
   done
+  #todo: replace xargs with tr ' ' '\n' ver
   res=($(comm -23 <(echo ${cols}|xargs -n1|sort) <(echo ${_columns}|xargs -n1|sort) | xargs))
   _describe "column" res
 }
@@ -33,6 +34,14 @@ _eii_query_options()
     '--filter[filter]' \
     '--value[value]' \
     '*: :->'
+}
+
+_eii_gen()
+{
+  _arguments -s : \
+    '--column[column]' \
+    '--filter[filter]' \
+    '--value[value]' \
 }
 
 _eii_table_options()
@@ -103,10 +112,6 @@ _eii_comp() {
         ;;
       ls|list)
         # NOP
-        ;;
-      lc|columns)
-        # todo: command
-        # list tables to select
         ;;
       *)
         _eii_command

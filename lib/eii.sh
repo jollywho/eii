@@ -10,7 +10,9 @@ EIIDIR=$(dirname ${EII})/eii
 . ${EIIDIR}/update.sh
 #━━━━━━━━━━━━━━━━━━━━━━━━━(Main)━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 db="${EIIDIR}/../../bin/eii.db"
-run "$@"
+cmd "$1"
+opts "$@"
+tables "$@"
 
 #Disable file name generation using metacharacters
 set -f
