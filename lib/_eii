@@ -4,22 +4,26 @@
 #eii - sqlite as bash arguments
 #
 _eii_all_tables() {_all_tables=($(./eii.sh -l)) }
-_eii_all_columns() {_all_columns=($(./eii.sh -cl $1)) }
+_eii_all_columns() {_all_columns=($(./eii.sh -cl -t $1)) }
 _tables=()
 _columns=()
 
 _eii_table_query()
 {
   _eii_all_tables
-  _describe "table" _all_tables
+  res=($(comm -23 <(echo ${_all_tables}|xargs -n1|sort) <(echo ${_tables}|xargs -n1|sort) | xargs))
+  _describe "table" res
 }
 
 _eii_column_query()
 {
+  local -a cols
   for tbl in $_tables; do
     _eii_all_columns $tbl
-    _describe "column" _all_columns
+    cols+=($_all_columns[@])
   done
+  res=($(comm -23 <(echo ${cols}|xargs -n1|sort) <(echo ${_columns}|xargs -n1|sort) | xargs))
+  _describe "column" res
 }
 
 _eii_query_options()
@@ -53,6 +57,7 @@ _eii_command()
 _eii_actions()
 {
   _tables=($(echo "$@" | cut -d "-" -f1))
+  _columns=($(echo "$@" | sed 's/.*--column \(.*\) -.*/\1/g'))
 
   # set state to last query opt
   local m
@@ -70,16 +75,6 @@ _eii_actions()
     esac
     shift
   done
-
-  # todo: opt arg values to remove duplicate
-  # table values are '^.*--|$'
-  # column values are '--column.*--|$'
-  #
-  # todo: * tables
-  # _eii_all_tables
-  # _eii_all_columns per table
-  # merge results
-  # remove where result match given values
 
   # default opts and query opt for state
   _eii_query_options

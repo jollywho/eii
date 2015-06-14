@@ -27,7 +27,7 @@ fi
 if [ "$option" == "-l" ]; then
   exec_sql $(echo ".tables")
 elif [ "$option" == "-cl" ]; then
-  echo $(sql_fields "$2" | tr ',' ' ')
+  echo $(sql_fields "$tables" | tr ',' ' ')
 fi
 
 for table in ${tables[@]}
