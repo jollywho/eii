@@ -3,10 +3,17 @@
 #
 #eii - sqlite as bash arguments
 #
+_eii_all_dbs() {_all_dbs=($(eii dbshow)) }
 _eii_all_tables() {_all_tables=($(eii list)) }
 _eii_all_columns() {_all_columns=($(eii cl "$@")) }
 _tables=()
 _columns=()
+
+_eii_db_query()
+{
+  _eii_all_dbs
+  _describe "database" _all_dbs
+}
 
 _eii_table_query()
 {
@@ -50,15 +57,24 @@ _eii_table_options()
     'tables:table:_eii_table_query' \
 }
 
+_eii_db_options()
+{
+  _arguments -s : \
+    '::database:_eii_db_query'
+}
+
 _eii_command()
 {
   local -a _eii_cmds
   _eii_cmds=(
-  "insert:insert data"
-  "delete:delete data"
-  "update:update data"
-  "select:select data"
-  "list:list all tables"
+  "insert:Insert data"
+  "delete:Delete data"
+  "update:Update data"
+  "select:Select data"
+  "showcol:List columns of table"
+  "showdb:List available databases"
+  "switch-to:switch to a database"
+  "list:List all tables in database"
   )
   _describe -t commands 'eii command' _eii_cmds
 }
@@ -113,8 +129,11 @@ _eii_comp() {
       ls|list)
         # NOP
         ;;
-      *)
-        _eii_command
+      switch-to)
+        _eii_db_options
+        ;;
+      showcol)
+        _eii_table_options
         ;;
     esac
   else

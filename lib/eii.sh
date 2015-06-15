@@ -1,5 +1,6 @@
 #!/usr/bin/bash
 EII=${BASH_SOURCE[0]}
+declare -A dbs
 #━━━━━━━━━━━━━━━━━━━━━━━(Functions)━━━━━━━━━━━━━━━━━━━━━━━━━
 usage() { cat usage; }
 
@@ -127,7 +128,6 @@ sql_fields()
 conf()
 {
   IFS=" "
-  declare -A dbs
   while read -r line;  do
     set -- $line
     case $1 in
@@ -163,8 +163,14 @@ cmd()
     list|ls)
       option="-l"
       ;;
-    colshow|cl)
+    showcol|shc)
       option="-cl"
+      ;;
+    showdb|shdb)
+      option="-dl"
+      ;;
+    switch-to)
+      option="-chdb"
       ;;
   esac
 }
@@ -459,6 +465,10 @@ fi
 # show table list if requested
 if [ "$option" == "-l" ]; then
   exec_sql $(echo ".tables")
+elif [ "$option" == "-dl" ]; then
+  echo "${!dbs[@]}"
+elif [ "$option" == "-chdb" ]; then
+  echo not supported
 elif [ "$option" == "-cl" ]; then
   echo $(sql_fields "$tables" | tr ',' ' ')
 fi
