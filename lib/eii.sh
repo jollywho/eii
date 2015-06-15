@@ -1,5 +1,6 @@
 #!/usr/bin/bash
 EII=${BASH_SOURCE[0]}
+CONFILE=$HOME/.eii/eii.conf
 declare -A dbs
 #━━━━━━━━━━━━━━━━━━━━━━━(Functions)━━━━━━━━━━━━━━━━━━━━━━━━━
 usage() { cat usage; }
@@ -142,7 +143,17 @@ conf()
         test ${dbs[$2]+_} && db=${dbs[$2]}
         ;;
     esac
-  done < $HOME/.eii/eii.conf
+  done < $CONFILE
+}
+
+switch_db()
+{
+  # test if key in array
+  if [ ${dbs[$1]+_} ]; then
+    # set and replace in conf
+    db=$1
+    sed -i "s/^default.*$/default $db/" $CONFILE
+  fi
 }
 
 cmd()
@@ -468,7 +479,7 @@ if [ "$option" == "-l" ]; then
 elif [ "$option" == "-dl" ]; then
   echo "${!dbs[@]}"
 elif [ "$option" == "-chdb" ]; then
-  echo not supported
+  switch_db "$tables"
 elif [ "$option" == "-cl" ]; then
   echo $(sql_fields "$tables" | tr ',' ' ')
 fi
