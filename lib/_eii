@@ -106,10 +106,6 @@ _eii_actions()
     column|filter)
       _eii_column_query
       ;;
-    value)
-      # [todo]: message
-      # -- column of param position-- #
-      ;;
     *)
       _eii_table_options
   esac
@@ -124,9 +120,6 @@ _eii_comp() {
     case "${cmd}" in
       sel|select)
         _eii_actions ${words[@]:1}
-        ;;
-      ls|list)
-        # NOP
         ;;
       switch-to)
         _eii_db_options

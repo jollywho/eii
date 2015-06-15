@@ -3,8 +3,6 @@ EII=${BASH_SOURCE[0]}
 CONFILE=$HOME/.eii/eii.conf
 declare -A dbs
 #━━━━━━━━━━━━━━━━━━━━━━━(Functions)━━━━━━━━━━━━━━━━━━━━━━━━━
-usage() { cat usage; }
-
 read_s_args()
 {
   if [ -z "$2" ]
@@ -198,10 +196,6 @@ opts()
 {
   while (($#)); do
     case "$1" in
-      -h|--help)
-        usage
-        exit
-        ;;
 #━━━━━━━━━━━━━━━━━━━━━━━(Selectors)━━━━━━━━━━━━━━━━━━━━━━━━━
       -c|--column)
         read_s_args columns ${@:2}
@@ -462,7 +456,7 @@ cmd "$1"
 opts "$@"
 tables "$@"
 
-#Disable file name generation using metacharacters
+# Disable file name generation using metacharacters
 set -f
 
 # exit if no option set
