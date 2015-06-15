@@ -3,8 +3,8 @@
 #
 #eii - sqlite as bash arguments
 #
-_eii_all_tables() {_all_tables=($(./eii.sh list)) }
-_eii_all_columns() {_all_columns=($(./eii.sh cl "$@")) }
+_eii_all_tables() {_all_tables=($(eii list)) }
+_eii_all_columns() {_all_columns=($(eii cl "$@")) }
 _tables=()
 _columns=()
 
