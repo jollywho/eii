@@ -1,3 +1,24 @@
+conf()
+{
+  IFS=" "
+  declare -A dbs
+  while read -r line;  do
+    set -- $line
+    case $1 in
+      database)
+        # hash if valid file
+        if [ -f `eval echo $3` ]; then
+          dbs+=([$2]=`eval echo $3`)
+        fi
+        ;;
+      default)
+        # test if key in array
+        test ${dbs[$2]+_} && db=${dbs[$2]}
+        ;;
+    esac
+  done < $HOME/.eii/eii.conf
+}
+
 cmd()
 {
   case "$1" in

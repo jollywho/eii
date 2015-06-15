@@ -10,6 +10,8 @@ EIIDIR=$(dirname ${EII})/eii
 . ${EIIDIR}/update.sh
 #━━━━━━━━━━━━━━━━━━━━━━━━━(Main)━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 db="${EIIDIR}/../../bin/eii.db"
+
+conf
 cmd "$1"
 opts "$@"
 tables "$@"
