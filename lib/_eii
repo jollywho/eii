@@ -5,7 +5,7 @@
 #
 _eii_all_dbs() {_all_dbs=($(eii showdb)) }
 _eii_all_tables() {_all_tables=($(eii list)) }
-_eii_all_columns() {_all_columns=($(eii cl "$@")) }
+_eii_all_columns() {_all_columns=($(eii showcol "$@")) }
 _tables=()
 _columns=()
 
@@ -18,7 +18,7 @@ _eii_db_query()
 _eii_table_query()
 {
   _eii_all_tables
-  res=($(comm -23 <(echo ${_all_tables}|xargs -n1|sort) <(echo ${_tables}|xargs -n1|sort) | xargs))
+  res=($(comm -23 <(echo ${_all_tables}|tr ' ' '\n'|sort) <(echo ${_tables}|tr ' ' '\n'|sort) | xargs))
   _describe "table" res
 }
 
@@ -29,8 +29,7 @@ _eii_column_query()
     _eii_all_columns $tbl
     cols+=($_all_columns[@])
   done
-  #todo: replace xargs with tr ' ' '\n' ver
-  res=($(comm -23 <(echo ${cols}|xargs -n1|sort) <(echo ${_columns}|xargs -n1|sort) | xargs))
+  res=($(comm -23 <(echo ${cols}|tr ' ' '\n'|sort) <(echo ${_columns}|tr ' ' '\n'|sort) | xargs))
   _describe "column" res
 }
 

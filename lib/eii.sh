@@ -209,10 +209,10 @@ opts()
       -f|--filter)
         read_s_args filters ${@:2}
         ;;
-      -n|--values)
+      -n|--newvalue)
         read_s_args newvalues "${@:2}"
         ;;
-      -v|--values)
+      -v|--value)
         read_s_args values "${@:2}"
         ;;
 #━━━━━━━━━━━━━━━━━━━━━━━(Misc)━━━━━━━━━━━━━━━━━━━━━━━━━
