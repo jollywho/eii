@@ -83,6 +83,9 @@ _eii_actions()
   _tables=($(echo "$@" | cut -d "-" -f1))
   _columns=($(echo "$@" | sed 's/.*--column \(.*\) -.*/\1/g'))
 
+  #todo: account for cursor position in string
+  # $CURSOR where comp was requested
+
   # set state to last query opt
   local m
   while (($#)); do
@@ -106,6 +109,9 @@ _eii_actions()
     column|filter)
       _eii_column_query
       ;;
+    value)
+      #NOP
+      ;;
     *)
       _eii_table_options
   esac
@@ -121,10 +127,13 @@ _eii_comp() {
       sel|select)
         _eii_actions ${words[@]:1}
         ;;
+        #todo:
+        # newdb) name file
       switch-to)
         _eii_db_options
         ;;
       showcol)
+        #todo: fix, this doesnt remove tables when selected
         _eii_table_options
         ;;
     esac
