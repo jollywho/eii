@@ -90,22 +90,44 @@ filter_loose()
 exec_sql()
 {
   touch $db
-  local res=$(sqlite3 --batch $db "$*")
+
+  sql="$*"
+  local res=$(do_query "$sql")
   if [ -n "$res" ]
   then
-    echo "$(echo "$res")"
+    format "$res"
+  fi
+}
+
+format()
+{
+  if [ ${USEHEADER} ]; then
+    head=$(do_query_header "$sql" | head -n1)
+    echo -e ${head}'\n'${*} | column -t -s '|'
+  else
+    echo "$*"
   fi
 }
 
 query_sql()
 {
   touch $db
+  do_query "$*"
+}
+
+do_query_header()
+{
+  echo "$(sqlite3 --header --batch $db "$* LIMIT 1")"
+}
+
+do_query()
+{
   echo "$(sqlite3 --batch $db "$*")"
 }
 
 sql_tables()
 {
-  local sql="SELECT name FROM sqlite_master WHERE type = 'table';"
+  local sql="SELECT name FROM sqlite_master WHERE type = 'table'"
   local vars="$(query_sql "$sql")"
   echo "$vars"
 }
@@ -118,7 +140,7 @@ table_data()
 
 sql_fields()
 {
-  local sql="PRAGMA table_info($1);"
+  local sql="PRAGMA table_info($1)"
   local res="$(query_sql "$sql")"
   echo "$res" | cut -d '|' -f2 | tr '\n' ',' | sed 's/,$//g'
 }
@@ -214,6 +236,9 @@ opts()
         db="${@:2:1}"
         shift
         ;;
+      -h|--header)
+        USEHEADER=true
+        ;;
       -x|--exact)
         USEXACT=true
         ;;
@@ -280,9 +305,9 @@ sql_select()
 {
   if [ -z "$3" ]
   then
-    echo "SELECT $1 FROM $2;"
+    echo "SELECT $1 FROM $2"
   else
-    echo "SELECT $1 FROM $2 WHERE $3;"
+    echo "SELECT $1 FROM $2 WHERE $3"
   fi
 }
 
@@ -334,7 +359,7 @@ run_insert()
 
 sql_insert()
 {
-  echo "INSERT INTO $1 VALUES ( $2 $3 );"
+  echo "INSERT INTO $1 VALUES ( $2 $3 )"
 }
 
 run_delete()
@@ -383,7 +408,7 @@ sql_delete()
   tbl=$1
   shift
   criteria=$@
-  echo "DELETE FROM $tbl WHERE $criteria;"
+  echo "DELETE FROM $tbl WHERE $criteria"
 }
 
 run_update()
@@ -443,7 +468,7 @@ gen_update_filters()
 
 sql_update()
 {
-  echo "UPDATE $1 SET $2 WHERE $3;"
+  echo "UPDATE $1 SET $2 WHERE $3"
 }
 
 #━━━━━━━━━━━━━━━━━━━━━━━━━(Main)━━━━━━━━━━━━━━━━━━━━━━━━━━━━
