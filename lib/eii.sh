@@ -87,26 +87,50 @@ filter_loose()
   echo $sql | sed $str
 }
 
-exec_sql()
+do_sql()
 {
   touch $db
-
   sql="$*"
   local res=$(do_query "$sql")
-  if [ -n "$res" ]
-  then
+
+  if [ ${USEHEADER} ]; then
+    head=$(do_query_header "$sql" | head -n1)
+    echo "$head"
+  fi
+
+  if [ -n "$res" ]; then
+    echo "$res"
+  fi
+}
+
+exec_sql()
+{
+  if [ ${USEHEADER} ]; then
+    res=$(do_sql "$*" | column -t -s '|' -o '|')
+  else
+    res=$(do_sql "$*")
+  fi
+
+  if [ ${USECOLOROFF} ]; then
+    echo "$res"
+  else
     format "$res"
   fi
 }
 
 format()
 {
-  if [ ${USEHEADER} ]; then
-    head=$(do_query_header "$sql" | head -n1)
-    echo -e ${head}'\n'${*} | column -t -s '|'
-  else
-    echo "$*"
-  fi
+  while read -r line; do
+    if [ $i ]; then
+      tput setab 0
+      tput setaf 3
+      unset i
+    elif [ ! $i ]; then
+      tput setaf 9
+      i=1;
+    fi
+    echo -e "$line\e[0m"
+  done <<< "$*"
 }
 
 query_sql()
@@ -239,6 +263,9 @@ opts()
       -h|--header)
         USEHEADER=true
         ;;
+      -co|--coloroff)
+        USECOLOROFF=true
+        ;;
       -x|--exact)
         USEXACT=true
         ;;
@@ -266,7 +293,7 @@ run_select()
   if [ -z $s_column ]; then s_column="*"; fi
 
   [ $USETNAME ] && echo $table
-  exec_sql $(sql_select "$s_column" $table "$s_filter")
+  exec_sql $(sql_select "$s_column" $table "$s_filter") | less
 }
 
 gen_sel_names()

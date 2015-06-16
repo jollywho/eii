@@ -3,9 +3,9 @@
 #
 #eii - sqlite as bash arguments
 #
-_eii_all_dbs() {_all_dbs=($(eii showdb)) }
-_eii_all_tables() {_all_tables=($(eii list)) }
-_eii_all_columns() {_all_columns=($(eii showcol "$@")) }
+_eii_all_dbs() {_all_dbs=($(eii showdb -co)) }
+_eii_all_tables() {_all_tables=($(eii list -co)) }
+_eii_all_columns() {_all_columns=($(eii showcol "$@" -co)) }
 _tables=()
 _columns=()
 
