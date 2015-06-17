@@ -122,14 +122,13 @@ format()
 {
   while read -r line; do
     if [ $i ]; then
-      tput setab 0
-      tput setaf 3
+      col='\033[32;40m'
       unset i
     elif [ ! $i ]; then
-      tput setaf 9
+      col='\e[31m'
       i=1;
     fi
-    echo -e "$line\e[0m"
+    echo -e "${col}$line\e[0m"
   done <<< "$*"
 }
 
