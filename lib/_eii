@@ -8,6 +8,8 @@ _eii_all_tables() {_all_tables=($(eii list -co)) }
 _eii_all_columns() {_all_columns=($(eii showcol "$@" -co)) }
 _tables=()
 _columns=()
+_filters=()
+_setcols=()
 
 _eii_db_query()
 {
@@ -33,21 +35,45 @@ _eii_column_query()
   _describe "column" res
 }
 
-_eii_query_options()
+_eii_filter_query()
+{
+  local -a filts
+  for tbl in $_tables; do
+    _eii_all_columns $tbl
+    filts+=($_all_columns[@])
+  done
+  res=($(comm -23 <(echo ${filts}|tr ' ' '\n'|sort) <(echo ${_filters}|tr ' ' '\n'|sort) | xargs))
+  _describe "filter" res
+}
+
+_eii_setcol_query()
+{
+  local -a setcols
+  for tbl in $_tables; do
+    _eii_all_columns $tbl
+    setcols+=($_all_columns[@])
+  done
+  res=($(comm -23 <(echo ${setcols}|tr ' ' '\n'|sort) <(echo ${_setcols}|tr ' ' '\n'|sort) | xargs))
+  _describe "column" res
+}
+
+_eii_select_options()
 {
   _arguments -s : \
     '--column[column]' \
-    '--filter[filter]' \
+    '--filter[filter value]' \
     '--value[value]' \
     '*: :->'
 }
 
-_eii_gen()
+_eii_update_options()
 {
   _arguments -s : \
-    '--column[column]' \
-    '--filter[filter]' \
-    '--value[value]' \
+    '--filter[filter on column(s)]' \
+    '--value[value(s) for filter]' \
+    '--set[column]' \
+    '--to[new value]' \
+    '*: :->'
 }
 
 _eii_table_options()
@@ -64,6 +90,21 @@ _eii_db_options()
 
 _eii_command()
 {
+  #select
+  # --filter cols
+  # --column to show
+  # --value for filter
+  #delete
+  # --filter cols
+  # --value for filter
+  #insert
+  # --column to be inserted
+  # --value to column
+  #update
+  # --filter
+  # --value
+  # --set column
+  # --to value for set
   local -a _eii_cmds
   _eii_cmds=(
   "insert:Insert data"
@@ -78,10 +119,12 @@ _eii_command()
   _describe -t commands 'eii command' _eii_cmds
 }
 
-_eii_actions()
+_eii_action()
 {
   _tables=($(echo "$@" | cut -d "-" -f1))
-  _columns=($(echo "$@" | sed 's/.*--column \(.*\) -.*/\1/g'))
+  _columns=($(echo "$@" | sed -nr 's/^.*--column (.*) *(--.+|$)/\1/p'))
+  _filters=($(echo "$@" | sed -nr 's/^.*--filter (.*) *(--.+|$)/\1/p'))
+  _setcols=($(echo "$@" | sed -nr 's/^.*--set (.*) *(--.+|$)/\1/p'))
 
   #todo: account for cursor position in string
   # $CURSOR where comp was requested
@@ -94,20 +137,59 @@ _eii_actions()
         m="column"
         ;;
       -f|--filter)
-        m="column"
+        m="filter"
         ;;
       -v|--value)
         m="value"
+        ;;
+      --set)
+        m="setcol"
+        ;;
+      --to)
+        m="toval"
         ;;
     esac
     shift
   done
 
-  # default opts and query opt for state
-  _eii_query_options
+  case ${cmd} in
+    select)
+      _eii_select_action
+      ;;
+    update)
+      _eii_update_action
+      ;;
+  esac
+}
+
+_eii_select_action() {
+  _eii_select_options
   case ${m} in
-    column|filter)
+    column)
       _eii_column_query
+      ;;
+    filter)
+      _eii_filter_query
+      ;;
+    value)
+      #NOP
+      ;;
+    *)
+      _eii_table_options
+  esac
+}
+
+_eii_update_action() {
+  _eii_update_options
+  case ${m} in
+    filter)
+      _eii_filter_query
+      ;;
+    setcol)
+      _eii_setcol_query
+      ;;
+    toval)
+      #NOP
       ;;
     value)
       #NOP
@@ -124,8 +206,8 @@ _eii_comp() {
     (( CURRENT-- ))
     shift words
     case "${cmd}" in
-      sel|select)
-        _eii_actions ${words[@]:1}
+      select|update|insert|delete)
+        _eii_action ${words[@]:1}
         ;;
         #todo:
         # newdb) name file
