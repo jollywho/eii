@@ -11,6 +11,10 @@ _columns=()
 _filters=()
 _setcols=()
 
+# helpers
+_s2n() { tr ' ' '\n'|sort }
+_n2s() { tr '\n' ' ' }
+
 _eii_db_query()
 {
   _eii_all_dbs
@@ -20,7 +24,7 @@ _eii_db_query()
 _eii_table_query()
 {
   _eii_all_tables
-  res=($(comm -23 <(echo ${_all_tables}|tr ' ' '\n'|sort) <(echo ${_tables}|tr ' ' '\n'|sort) | xargs))
+  res=($(comm -23 <(echo ${_all_tables}|_s2n) <(echo ${_tables}|_s2n)|_n2s))
   _describe "table" res
 }
 
@@ -31,7 +35,7 @@ _eii_column_query()
     _eii_all_columns $tbl
     cols+=($_all_columns[@])
   done
-  res=($(comm -23 <(echo ${cols}|tr ' ' '\n'|sort) <(echo ${_columns}|tr ' ' '\n'|sort) | xargs))
+  res=($(comm -23 <(echo ${cols}|_s2n) <(echo ${_columns}|_s2n)|_n2s))
   _describe "column" res
 }
 
@@ -42,7 +46,7 @@ _eii_filter_query()
     _eii_all_columns $tbl
     filts+=($_all_columns[@])
   done
-  res=($(comm -23 <(echo ${filts}|tr ' ' '\n'|sort) <(echo ${_filters}|tr ' ' '\n'|sort) | xargs))
+  res=($(comm -23 <(echo ${filts}|_s2n) <(echo ${_filters}|_s2n)|_n2s))
   _describe "filter" res
 }
 
@@ -53,7 +57,7 @@ _eii_setcol_query()
     _eii_all_columns $tbl
     setcols+=($_all_columns[@])
   done
-  res=($(comm -23 <(echo ${setcols}|tr ' ' '\n'|sort) <(echo ${_setcols}|tr ' ' '\n'|sort) | xargs))
+  res=($(comm -23 <(echo ${setcols}|_s2n) <(echo ${_setcols}|_s2n)|_n2s))
   _describe "column" res
 }
 
