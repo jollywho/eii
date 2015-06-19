@@ -106,7 +106,7 @@ do_sql()
 exec_sql()
 {
   if [ ${USEHEADER} ]; then
-    res=$(do_sql "$*" | column -t -s '|' -o '|')
+    res=$(do_sql "$*" | column -t -s '|' -o ' | ')
   else
     res=$(do_sql "$*")
   fi
@@ -248,7 +248,10 @@ opts()
       -f|--filter)
         read_s_args filters ${@:2}
         ;;
-      -n|--newvalue)
+      --set)
+        read_s_args columns "${@:2}"
+        ;;
+      --to)
         read_s_args newvalues "${@:2}"
         ;;
       -v|--value)
@@ -406,7 +409,10 @@ run_delete()
   if [ $num -eq 0 ]; then
     return
   fi
-  echo "$records"
+
+  gen_sel_filters
+
+  echo "$records" | less
 
   if [ ! $USEASK ]; then
     read -r -p "$num record(s) will be deleted. Continue [y/N]? " choice
@@ -416,7 +422,7 @@ run_delete()
 
   case $choice in
     [yY][eE][sS]|[yY])
-    exec_sql $(sql_delete $table "$s_filter")
+      exec_sql $(sql_delete $table "$s_filter")
     ;;
   esac
 }
@@ -442,10 +448,9 @@ run_update()
   # exit if filter or value not supplied
   if
     [ -z "$s_newvalue" ] ||
-    [ -z "$s_column" ] ||
     [ -z "$s_filter" ] ||
     [ -z "$s_value" ]; then
-    echo "Update requires -c, -n, -f, and -v"
+    echo "Update requires filter ..., set ..., to ..."
     exit
   fi
 
@@ -460,9 +465,11 @@ run_update()
     echo "update will affect ${num} records."
     return
   fi
+
   gen_updates
   gen_update_filters
 
+  echo "$records" | less
   if [ ! $USEASK ]; then
     read -r -p "$num record(s) will be updated. Continue [y/N]? " choice
   else
@@ -471,8 +478,8 @@ run_update()
 
   case $choice in
     [yY][eE][sS]|[yY])
-    exec_sql $(sql_update $table "$s_updates" "$s_filter")
-    ;;
+      exec_sql $(sql_update $table "$s_updates" "$s_filter")
+      ;;
   esac
 }
 
@@ -480,7 +487,12 @@ gen_updates()
 {
   # generate filter segment of the sql
   if [ -n "$s_newvalue" ]; then
+    # store USEXACT state
+    use=$USEXACT
+    USEXACT=true
     s_updates=$(filter_strict and "$s_column" "$s_newvalue")
+    # restore state
+    USEXACT=$use
   fi
 }
 
