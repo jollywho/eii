@@ -155,7 +155,7 @@ _eii_select_action() {
       _eii_column_query "${_columns}"
       ;;
     filter)
-      _eii_column_query "${_columns}"
+      _eii_column_query "${_filters}"
       ;;
     value)
       #NOP
@@ -169,10 +169,10 @@ _eii_update_action() {
   _eii_update_options
   case ${m} in
     filter)
-      _eii_column_query "${_columns}"
+      _eii_column_query "${_filters}"
       ;;
     setcol)
-      _eii_column_query "${_columns}"
+      _eii_column_query "${_setcols}"
       ;;
     toval)
       #NOP
@@ -189,7 +189,7 @@ _eii_delete_action() {
   _eii_delete_options
   case ${m} in
     filter)
-      _eii_column_query "${_columns}"
+      _eii_column_query "${_filters}"
       ;;
     value)
       ;;
@@ -215,11 +215,16 @@ _eii_comp() {
   local cmd
   if (( CURRENT > 2)); then
     cmd=${words[2]}
+    cmd_len=$((4+${#cmd})) # eii + cmd length
+    cur=$((${CURSOR}-${cmd_len}))
+
+    # splice words from after cmd to cursor pos
+    state=($(echo "${words:$cmd_len:$cur}"))
     (( CURRENT-- ))
     shift words
     case "${cmd}" in
       select|update|insert|delete)
-        _eii_action ${words[@]:1}
+        _eii_action $state
         ;;
         #todo:
         # newdb) name file
