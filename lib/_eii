@@ -42,19 +42,35 @@ _eii_column_query()
 _eii_select_options()
 {
   _arguments -s : \
-    '--column[column]' \
-    '--filter[filter value]' \
-    '--value[value]' \
+    '--column[column list]' \
+    '--filter[filter list of columns]' \
+    '--value[value(s) for filter]' \
     '*: :->'
 }
 
 _eii_update_options()
 {
   _arguments -s : \
-    '--filter[filter on column(s)]' \
+    '--filter[filter list of columns]' \
     '--value[value(s) for filter]' \
-    '--set[column]' \
-    '--to[new value]' \
+    '--set[column list]' \
+    '--to[new value to set]' \
+    '*: :->'
+}
+
+_eii_delete_options()
+{
+  _arguments -s : \
+    '--filter[filter list of columns]' \
+    '--value[value(s) for filter]' \
+    '*: :->'
+}
+
+_eii_insert_options()
+{
+  _arguments -s : \
+    '--column[column list to be inserted]' \
+    '--value[value(s) for column]' \
     '*: :->'
 }
 
@@ -72,21 +88,6 @@ _eii_db_options()
 
 _eii_command()
 {
-  #select
-  # --filter cols
-  # --column to show
-  # --value for filter
-  #delete
-  # --filter cols
-  # --value for filter
-  #insert
-  # --column to be inserted
-  # --value to column
-  #update
-  # --filter
-  # --value
-  # --set column
-  # --to value for set
   local -a _eii_cmds
   _eii_cmds=(
   "insert:Insert data"
@@ -141,6 +142,12 @@ _eii_action()
     update)
       _eii_update_action
       ;;
+    delete)
+      _eii_delete_action
+      ;;
+    insert)
+      _eii_insert_action
+      ;;
   esac
 }
 
@@ -175,6 +182,32 @@ _eii_update_action() {
       ;;
     value)
       #NOP
+      ;;
+    *)
+      _eii_table_options
+  esac
+}
+
+_eii_delete_action() {
+  _eii_delete_options
+  case ${m} in
+    filter)
+      _eii_column_query ${_filters}
+      ;;
+    value)
+      ;;
+    *)
+      _eii_table_options
+  esac
+}
+
+_eii_insert_action() {
+  _eii_insert_options
+  case ${m} in
+    column)
+      _eii_column_query ${_columns}
+      ;;
+    value)
       ;;
     *)
       _eii_table_options
