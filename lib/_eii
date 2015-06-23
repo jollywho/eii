@@ -109,9 +109,6 @@ _eii_action()
   _filters=($(echo "$@" | sed -nr 's/^.*--filter (.*) *(--.+|$)/\1/p'))
   _setcols=($(echo "$@" | sed -nr 's/^.*--set (.*) *(--.+|$)/\1/p'))
 
-  #todo: account for cursor position in string
-  # $CURSOR where comp was requested
-
   # set state to last query opt
   local m
   while (($#)); do
@@ -155,10 +152,10 @@ _eii_select_action() {
   _eii_select_options
   case ${m} in
     column)
-      _eii_column_query ${_columns}
+      _eii_column_query "${_columns}"
       ;;
     filter)
-      _eii_column_query ${_filters}
+      _eii_column_query "${_columns}"
       ;;
     value)
       #NOP
@@ -172,10 +169,10 @@ _eii_update_action() {
   _eii_update_options
   case ${m} in
     filter)
-      _eii_column_query ${_filters}
+      _eii_column_query "${_columns}"
       ;;
     setcol)
-      _eii_column_query ${_setcols}
+      _eii_column_query "${_columns}"
       ;;
     toval)
       #NOP
@@ -192,7 +189,7 @@ _eii_delete_action() {
   _eii_delete_options
   case ${m} in
     filter)
-      _eii_column_query ${_filters}
+      _eii_column_query "${_columns}"
       ;;
     value)
       ;;
@@ -205,7 +202,7 @@ _eii_insert_action() {
   _eii_insert_options
   case ${m} in
     column)
-      _eii_column_query ${_columns}
+      _eii_column_query "${_columns}"
       ;;
     value)
       ;;
