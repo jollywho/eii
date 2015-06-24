@@ -1,6 +1,13 @@
 #!/usr/bin/bash
-EII=${BASH_SOURCE[0]}
-CONFILE=$HOME/.eii/eii.conf
+CONFDIR=$HOME/.eii
+FILENAME=eii.conf
+CONFILE=$CONFDIR/$FILENAME
+if [ ! -f $CONFILE ]; then
+  mkdir -p $CONFDIR
+  touch $CONFILE
+  echo "created new config: ${CONFILE}"
+  exit
+fi
 declare -A dbs
 #━━━━━━━━━━━━━━━━━━━━━━━(Functions)━━━━━━━━━━━━━━━━━━━━━━━━━
 read_s_args()

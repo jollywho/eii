@@ -226,8 +226,6 @@ _eii_comp() {
       select|update|insert|delete)
         _eii_action $state
         ;;
-        #todo:
-        # newdb) name file
       switch-to)
         _eii_db_options
         ;;
