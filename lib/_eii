@@ -232,7 +232,7 @@ _eii_comp() {
         _eii_db_options
         ;;
       showcol)
-        #todo: fix, this doesnt remove tables when selected
+        _tables=($(echo "${words:2}" | cut -d "-" -f1))
         _eii_table_options
         ;;
     esac
